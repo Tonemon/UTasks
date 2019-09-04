@@ -17,13 +17,12 @@ Om dit project toch live op je systeem uit te proberen moet je de volgende stapp
 1. Download de laatste versie van dit project, door op de 'Clone or Download' knop te drukken en het project (als zip bestand) te downloaden.
 2. Zorg ervoor dat je op je systeem **Apache** en **MySQL** geinstalleerd hebt (Ik maak zelf gebruik van AMPPS, dat gemakkelijk en handig in gebruik is. Daarnaast heeft het allebei in 1 plek, waardoor het makkelijker
 aan en uit te zetten is). 
-3. Pak de twee folders uit in je localhost (de plek waar je de websites in stopt).
-4. Voor gemakkelijkere gebruik kan je ook nog in het 'hosts' bestand op je pc de twee domeinen toevoegen, waardoor je in je browser automatisch het webadres kan invoegen zonder eerst localhost ervoor te zetten.
+3. Pak de hoofdfolder uit in je localhost (de plek waar je de websites in stopt).
+4. Voor gemakkelijkere gebruik kan je ook nog in het 'hosts' bestand op je pc de het domein toevoegen, waardoor je in je browser automatisch het webadres kan invoegen zonder eerst localhost ervoor te zetten.
 Het volgende moet dan in je 'hosts' bestand staan:
-<pre>127.0.0.1 utasks.me
-127.0.0.1 my.utasks.me</pre>
+<pre>127.0.0.1 utasks.me</pre>
 5. Ga naar je phpmyadmin configuratie en maak de volgende twee databases aan: UTasksDAT en UTasksMAIN. Maak daarna een nieuwe gebruiker aan (naam: UTasks, wachtwoord: UTasks) en zorg ervoor dat hij alle rechten heeft op
 **beide databases** door zijn rechten aan te passen (Edit Privileges > Database > Add privileges on following databases > Grant all & Go).
 6. Importeer beide bestanden in de juiste databases (UTasksDAT.sql in UTasksDAT en UTasksMAIN.sql in UTasksMAIN database).
-7. Ga naar de <a href="http://utasks.me" target="_blank">homepagina</a> of bank <a href="http://my.utasks.me" target="_blank">login pagina</a> en log in met de volgende informatie:
+7. Ga naar de <a href="http://utasks.me" target="_blank">homepagina</a> of bank <a href="http://utasks.me/login" target="_blank">login pagina</a> en log in met de volgende informatie:
 <pre>Gebruikersnaam/Email: test / test@utasks.me, wachtwoord: test</pre>
