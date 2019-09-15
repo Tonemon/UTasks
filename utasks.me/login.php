@@ -1,49 +1,58 @@
 <?php 
 if(isset($_REQUEST['loginbutton'])){
     include '_inc/dbconn.php';
-    $username = $_REQUEST['login_username'];
+    $login_user = $_REQUEST['login_username'];
     
     // password salting (for security reasons)
     $salt = "@3e6jQsK&na*&#3j";
-    $password= sha1($_REQUEST['login_password'].$salt);
+    $login_password = sha1($_REQUEST['login_password'].$salt);
 
-    // getting usefull information for session creation
-    $sqlquery = "SELECT username,email,password,accstatus,status FROM UTasksMAIN.users WHERE username='$username' AND password='$password'";
-    $result = mysql_query($sqlquery) or die(mysql_error());
-    $arr = mysql_fetch_array($result);
+    if (preg_match("/@/", $login_user)) { // check for @, if present:
+        // getting usefull information for session creation (with email)
+        $sqlquery = "SELECT username,email,password,accstatus,status,id FROM UTasksMAIN.users WHERE email='$login_user' AND password='$login_password'";
+        $result = mysql_query($sqlquery) or die(mysql_error());
+        $arr =  mysql_fetch_array($result);
+
+    } else { // no @ present, so login with username:
+        // getting usefull information for session creation (with username)
+        $sqlquery = "SELECT username,email,password,accstatus,status,id FROM UTasksMAIN.users WHERE username='$login_user' AND password='$login_password'";
+        $result = mysql_query($sqlquery) or die(mysql_error());
+        $arr =  mysql_fetch_array($result);
+    }
     
-    $user = $arr[0];
-	  $user_email = $arr[1];
-    $pwd = $arr[2];
-	  $accstatus = $arr[3];
+    $db_username = $arr[0];
+	  $db_email = $arr[1];
+    $db_pass = $arr[2];
+	  $db_accstatus = $arr[3];
 	  $status = $arr[4];
+    $db_id = $arr[5];
 
 	  // This query checks if user is permanently deleted (from 'usersclosed' table)
-	  $del_sql = "SELECT username FROM UTasksMAIN.usersclosed WHERE username='$username'";
+	  $del_sql = "SELECT username FROM UTasksMAIN.usersclosed WHERE username='$db_username'";
     $del_result = mysql_query($del_sql) or die(mysql_error());
     $del_rws = mysql_fetch_array($del_result);
     
-    if($user == $username && $pwd == $password){ // check if submitted information is correct
-		  if ($accstatus == "ACTIVE"){ // check if account status is active or not
-			 session_start();
-			 $_SESSION['user_login']=1;
-			 $_SESSION['user_email']=$user_email;
+    if (($login_user == $db_username || $login_user == $db_email) && $login_password == $db_pass){ // check if submitted information is correct
+      if ($db_accstatus == "ACTIVE"){ // check if account status is active or not
+        session_start();
+        $_SESSION['session_tasks_start'] = 1;
+        $_SESSION['session_tasks_username'] = $db_user;
+        $_SESSION['session_tasks_email'] = $db_email;
+        $_SESSION['session_tasks_id'] = $db_id;
+        $_SESSION['session_tasks_name'] = $db_name;
+        
+        // setting user status to online
+        $setonline = "UPDATE UTasksMAIN.users SET status='online' WHERE email='$db_email'";
+        mysql_query($setonline) or die(mysql_error());
+        header('location:home');
+      } else { // account status is set to disabled
+        header('location:login?error=3');
+      }
+    } else { // user login information is incorrect
+      header('location:login?error=1'); 
+    }
+} ?>
 
-			 // setting user status to online
-			 $setonline="UPDATE UTasksMAIN.users SET status='online' WHERE email='$user_email'";
-			 mysql_query($setonline) or die(mysql_error());
-			 header('location:home'); 
-		  } else { // account status is set to disabled
-			 header('location:login?error=3'); 
-		  }
-    } elseif ($del_rws[0] != "") { // user account is/might be permanently deleted
-    	header('location:login?notice=1');
-
-    } else { // user login information is incorrect.
-		header('location:login?error=1'); 
-	}
-}
-?>
 <?php 
 session_start();
         
@@ -68,7 +77,7 @@ if(isset($_SESSION['user_tasks_start'])) // check if session active to redirect 
 	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 	<link href="vendor/css/sb-admin.css" rel="stylesheet">
 		
-	<title>Login to your Account | UTasks</title>
+	<title>Login to your Account | UTasks User Panel</title>
 		
 	<script type="text/javascript">
 		function Forgot() {
@@ -79,9 +88,9 @@ if(isset($_SESSION['user_tasks_start'])) // check if session active to redirect 
   <body class="login-bg">
     <div class="container">
       <div class="card card-login">
-        <div class="card-header text-center"><a href="http://utasks.me">&laquo;</a> UTasks Online Login</div>
+        <div class="card-header text-center"><i class="fas fa-home"></i> UTasks User Panel</div>
         <div class="card-body text-center">
-          <form action="index.php" method="POST" name="login_form">
+          <form action="login" method="POST" name="login_form">
 
     			<?php
     				if ($_GET['success'] == "1") { // logged out
@@ -107,7 +116,7 @@ if(isset($_SESSION['user_tasks_start'])) // check if session active to redirect 
     				} elseif ($_GET['notice'] == "1") { // account might be deleted or weird error
     					echo "<div class='alert alert-warning'>
     						<i class='fas fa-exclamation-triangle'></i>
-    						Your account might be permanently removed. <a href='#'' id='pagesDropdown' role='button' data-toggle='modal' data-target='#infoModal' aria-haspopup='true' aria-expanded='false'>Read more</a>.</div>";
+    						Your account might be permanently removed. <a href='#' id='pagesDropdown' role='button' data-toggle='modal' data-target='#infoModal' aria-haspopup='true' aria-expanded='false'>Read more</a>.</div>";
     				} else { // normal login text (when no error shown)
     					echo "<p>Please login below using your UTasks account.</p>";
     				}
@@ -115,26 +124,24 @@ if(isset($_SESSION['user_tasks_start'])) // check if session active to redirect 
             <div class="form-group">
               <div class="form-label-group">
                 <input type="text" id="username" class="form-control" name="login_username" required="required">
-                <label for="username">Your Email or Username</label>
+                <label for="username">Username or Email</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                  <div class="form-label-group">
-                    <input type="password" id="password" class="form-control" name="login_password" required="required">
-                    <label for="password">Password</label>
-					<input type="hidden" name="p" id="p" value="">
-                  </div>
+                <div class="form-label-group">
+                  <input type="password" id="password" class="form-control" name="login_password" required="required">
+                  <label for="password">Password</label>
+					        <input type="hidden" name="p" id="p" value="">
+                </div>
               </div>
             </div>
-			<div class="form-group">
+			      <div class="form-group">
               <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="remember-me"> Remember Me
-                </label>
+                <label><input type="checkbox" value="remember"> Remember Me</label>
               </div>
             </div>
-			<button class="btn btn-primary btn-block" type="submit" class="btn" name="loginbutton">Login</button>
+			      <button class="btn btn-primary btn-block" type="submit" name="loginbutton">Login <i class="fas fa-sign-in-alt"></i></button>
           </form>
           <div class="text-center">
             <a class="d-block small mt-3" href="http://utasks.me/register">Register an Account</a>
