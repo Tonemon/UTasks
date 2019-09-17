@@ -1,9 +1,3 @@
-/*!
- * Start Bootstrap - SB Admin v5.0.2 (https://startbootstrap.com/template-overviews/sb-admin)
- * Copyright 2013-2018 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-sb-admin/blob/master/LICENSE)
- */
-
 html {
   position: relative;
   min-height: 100%;
@@ -93,7 +87,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 
 .sidebar {
   width: 100% !important;
-  background-color: #ace600;
+  background-color: #28a745;
   min-height:100vh;
 }
 

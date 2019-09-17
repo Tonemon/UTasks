@@ -1,69 +1,76 @@
-.bg-blue{
-	background-color:#006bb3 !important
+.bg-green {
+	background-color:#28a745 !important;
 }
 
-html,body{
-	height:100%;
+.bg-dark-green {
+	background-color: #23903c !important;
+}
+
+html,body {
+	height: 100%;
 	width: 100%;
 }
 
-.carousel,.item,.active{
-	height:100%;
-	width: 100%;
- }
-.carousel-inner{
-	height:50%;
-	width: 100%;
-}
-
-.bg-blue-light{
-	background:#006bb3;
-	background:-webkit-linear-gradient(#006bb3,#006bb3);
-	background:linear-gradient(#006bb3,#006bb3);
-	color:#fff;background:url(/vendor/img/bg-pattern.png),#006bb3;
-}
-
-.signup{
-	background:#004d80;
-	background:-webkit-linear-gradient(#004d80,#004d80);
-	background:linear-gradient(#004d80,#004d80);
-	color:#fff;background:url(/vendor/img/bg-pattern.png),#004d80;
+.homeheader {
 	position:relative;
-	padding:40px 0;
+	padding:100px 0;
 }
 
-.bg-foot{
-	background:#006bb3;
-	background:-webkit-linear-gradient(#006bb3,#006bb3);
-	background:linear-gradient(#006bb3,#006bb3);
-	position:relative;
-	padding:10px 0;
-}
-
-.features{
+.about {
+	background-color:#28a745 !important;
 	position:relative;
 	padding:70px 0;
 }
 
-.about{
+.cpanel {
 	position:relative;
 	padding:40px 0;
 }
 
-.business{
-	position:relative;
-	padding:40px 0;
-}
-
-.contact{
+.register {
 	position:relative;
 	padding:60px 0;
-	background:#f8f9fa;
-	background:-webkit-linear-gradient(#f8f9fa,#f8f9fa);
-	background:linear-gradient(#f8f9fa,#f8f9fa);
+	background:-webkit-linear-gradient(#23903c,#fff);
+	background:linear-gradient(#23903c,#fff);
 }
 
-.clients{
+.contact {
 	position:relative;
-	padding:30px 0;
+	padding:60px 0;
+	background-color: #23903c !important;
+}
+
+.reviews {
+	position: relative;
+	padding: 20px 0 40px;
+}
+
+.scroll-to-top {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  display: none;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  color: #fff;
+  background: rgba(52, 58, 64, 0.5);
+  line-height: 46px;
+}
+
+.homefooter {
+	padding: 30px 0 10px;
+	background-color: #23903c !important;
+}
+
+.scroll-to-top:focus, .scroll-to-top:hover {
+  color: white;
+}
+
+.scroll-to-top:hover {
+  background: #343a40;
+}
+
+.scroll-to-top i {
+  font-weight: 800;
 }

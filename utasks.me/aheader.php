@@ -23,7 +23,7 @@
   $dob=$rws[3];
         
   // checking for corrupted sessions
-  if ($email == ""){ // often happends when user is deleted and still logged in or corrupted session
+  if ($_SESSION['session_tasks_start'] = "" && $status == 'online'){ // often happends when user is deleted and still logged in or corrupted session
     session_destroy();
     header('location:login?notice=1');
   } elseif ($rws[10] == "DISABLED"){ // logs users out when they are disabled and still logged in

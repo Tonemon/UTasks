@@ -1,8 +1,8 @@
 <?php 
 session_start();
-        
-if(!isset($_SESSION['session_tasks_start'])) 
-    header('location:login');   
+if (!isset($_SESSION['session_tasks_start'])){
+	header('location:login?notice=2');
+}  
 ?>
 
 <!DOCTYPE html>

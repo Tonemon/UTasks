@@ -54,10 +54,10 @@ if(isset($_REQUEST['loginbutton'])){
 } ?>
 
 <?php 
-session_start();
-        
-if(isset($_SESSION['user_tasks_start'])) // check if session active to redirect user from login page
+session_start(); // check if session active to redirect user from login page
+  if ($_SESSION['session_tasks_start'] == "1"){
     header('location:home');   
+  }  
 ?>
 
 <!DOCTYPE html>
@@ -117,7 +117,10 @@ if(isset($_SESSION['user_tasks_start'])) // check if session active to redirect 
     					echo "<div class='alert alert-warning'>
     						<i class='fas fa-exclamation-triangle'></i>
     						Your account might be permanently removed. <a href='#' id='pagesDropdown' role='button' data-toggle='modal' data-target='#infoModal' aria-haspopup='true' aria-expanded='false'>Read more</a>.</div>";
-    				} else { // normal login text (when no error shown)
+    				} elseif ($_GET['notice'] == "2") { // account might be deleted or weird error
+              echo "<div class='alert alert-warning'>
+                <i class='fas fa-exclamation-triangle'></i> Please login first to continue.</div>";
+            } else { // normal login text (when no error shown)
     					echo "<p>Please login below using your UTasks account.</p>";
     				}
     			?>
