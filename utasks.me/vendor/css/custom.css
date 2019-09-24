@@ -1,5 +1,10 @@
+.fixed-top-2 {
+    margin-top: 56px;
+    background-color:#32cd56 !important;
+}
+
 .bg-green {
-	background-color:#28a745 !important;
+	background-color:#28a745;
 }
 
 .bg-dark-green {

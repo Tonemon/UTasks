@@ -45,8 +45,48 @@
 	          </ul>
 	      </div>
 	    </nav>
+
+	    <!-- Show when user is logged in and on homepage-->
+	    <?php 
+	    	session_start();
+	    	if (isset($_SESSION['session_tasks_start'])){ ?>
+	    <nav class="navbar navbar-expand-sm navbar-dark bg-green fixed-top fixed-top-2">
+	      <div class="container">
+	        <a class="navbar-brand text-white"><small><small><i class="fas fa-info-circle"></i> You are already logged in. Use the button on the left instead of the login button to continue.</small></small></a>
+	          <ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+					  <b><a class="nav-link" href="home">Click here to go to your tasks &raquo;</a></b>
+					</li>
+	          </ul>
+	      </div>
+	    </nav>
+		<?php } ?>
 	
 	<div class="container homeheader" id="homeheader">
+	<?php
+		if (isset($_GET['contact']) && $_GET['success'] == "1") {
+			echo "<div class='alert alert-success alert-dismissible'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<i class='fas fa-check'></i> Contact message submitted. </div>";
+		} elseif (isset($_GET['contact']) && $_GET['error'] == "1") {
+			echo "<div class='alert alert-warning alert-dismissible'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<i class='fas fa-exclamation-triangle'></i> Oh. Something went wrong. Please try again.</div>";
+		} elseif (isset($_GET['register']) && $_GET['success'] == "1") {
+			echo "<div class='alert alert-success alert-dismissible'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<i class='fas fa-check'></i> New account request submitted. Please check your mail for further instructions.</div>";
+		} elseif (isset($_GET['register']) && $_GET['error'] == "1") {
+			echo "<div class='alert alert-warning alert-dismissible'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<i class='fas fa-exclamation-triangle'></i> Oh. Something went wrong. Please try again.</div>";
+		} elseif (isset($_GET['register']) && $_GET['error'] == "2") {
+			echo '<div class="col-xl-12 mb-6"><div class="alert alert-warning alert-dismissible">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<i class="fas fa-exclamation-triangle"></i> New passwords do not match. No information was changed.</div></div>';
+		}
+	?>
+
 	  <h1 class="mt-5">Focus more using UTasks</h1>
 	  <div class="row mt-4">
           <div class="col-sm-5">
@@ -59,7 +99,7 @@
           </div>
           <div class="col-sm-1"></div>
 		  <div class="col-sm-6">
-			<img src="vendor/img/screenshot1.png" width="100%" alt="" /></a>
+			<img src="vendor/img/screenshot1.png" width="100%" alt="" />
           </div>
         </div>
     </div>
@@ -100,7 +140,7 @@
 			  </p>
           </div>
 		  <div class="col-sm-6">
-			<img src="vendor/img/screenshot2.png" width="100%" alt="" /></a>
+			<img src="vendor/img/screenshot2.png" width="100%" alt="" />
           </div>
         </div>
     </div>
@@ -108,21 +148,10 @@
     <!-- contact form -->
 	  <div class="row contact text-white" id="contact">
 	  	<div class="col-lg-12">
-			<?php
-				if (isset($_GET['send'])) {
-					echo "<br><div class='alert alert-success alert-dismissible'>
-						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-						<i class='fas fa-check'></i> Question send. We will try to answer it as soon as possible. </div>";
-				} elseif (isset($_GET['error'])) {
-					echo "<br><div class='alert alert-danger alert-dismissible'>
-						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-						<i class='fas fa-exclamation-triangle'></i> Something went wrong and your question could not be send. Please try again later.</div>";
-				}
-			?>
 		</div>
 	    <div class="col-lg-1"></div>
 		<div class="col-lg-4">
-		  <h1>Contact Form</h2>
+		  <h1>Contact Form</h1>
 		  <hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 40%;">
 		  <p>Please enter your full name, your type of question, a valid email address and your message. Please describe your question as accurate as you can so our staff can answer it precisely. <br><br>
 		  <b>All fields in this form are required.</b></p>
@@ -186,7 +215,7 @@
 	  <div class="row register text-white" id="register">
 	    <div class="col-sm-1"></div>
 		<div class="col-sm-4">
-		  <h1>Create Account</h2>
+		  <h1>Create Account</h1>
 		  <hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 40%;">
 		  <p>When creating a new account, please keep in mind:<br>
 		  	<ul>
@@ -204,25 +233,14 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="form_name">Full name</label>
-								<input id="form_name" type="text" name="n_firstname" class="form-control" placeholder="Enter your full name" required="required" data-error="Your First name is required.">
+								<input id="form_name" type="text" name="n_fullname" class="form-control" placeholder="Enter your full name" required="required" data-error="Your First name is required.">
 								<div class="help-block with-errors"></div>
 							</div>
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-6">
 							<div class="form-group">
-								<label for="form_gender">Gender</label>
-								<select id="form_gender" name="n_gender" class="form-control" required="required" data-error="Select your category.">
-									<option value="">...</option>
-									<option value="M">M (Male)</option>
-									<option value="F">F (Female)</option>
-								</select>
-								<div class="help-block with-errors"></div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label for="form_birthdate">Date of Birth</label>
-								<input id="form_birthdate" type="date" name="n_dob" class="form-control" placeholder="Enter your birth date" required="required" data-error="A valid email address is required.">
+								<label for="form_name">Username</label>
+								<input id="form_name" type="text" name="n_username" class="form-control" placeholder="Enter your username" required="required" data-error="Your username is required.">
 								<div class="help-block with-errors"></div>
 							</div>
 						</div>
@@ -264,14 +282,32 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-8">
+						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="form_newpass">Enter new password</label>
 								<input id="form_newpass" type="password" name="n_newpass" class="form-control" placeholder="Enter your new password" required="required" data-error="A valid email address is required.">
 								<div class="help-block with-errors"></div>
 							</div>
 						</div>
-						<div class="col-sm-8">
+						<div class="col-sm-2">
+							<div class="form-group">
+								<label for="form_gender">Gender</label>
+								<select id="form_gender" name="n_gender" class="form-control" required="required" data-error="Select your category.">
+									<option value="">...</option>
+									<option value="M">M (Male)</option>
+									<option value="F">F (Female)</option>
+								</select>
+								<div class="help-block with-errors"></div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label for="form_birthdate">Date of Birth</label>
+								<input id="form_birthdate" type="date" name="n_dob" class="form-control" placeholder="Enter your birth date" required="required" data-error="A valid email address is required.">
+								<div class="help-block with-errors"></div>
+							</div>
+						</div>
+						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="form_repeatpass">Repeat new password</label>
 								<input id="form_repeatpass" type="password" name="n_repeatpass" class="form-control" placeholder="Repeat your new password" required="required" data-error="A valid email address is required.">
@@ -329,7 +365,7 @@
 			<div class="col-lg-5">
 				<p>&copy; Copyright <?php echo date("Y") ?> UTasks. All rights reserved.</p>
 			</div>
-		</div><!-- /.row -->
+		</div>
 	</footer>
 
 	<!-- Credits footer on every page -->
@@ -337,7 +373,7 @@
 	
 	<!-- Bootstrap core JavaScript -->
 	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	<script src="vendor/js/bootstrap.bundle.min.js"></script>
 		
 	<!-- Custom JS (scroll trigger) -->
 	<script src="vendor/js/jquery.easing.min.js"></script>

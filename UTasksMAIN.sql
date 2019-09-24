@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 10, 2019 at 09:13 AM
+-- Generation Time: Sep 24, 2019 at 07:46 PM
 -- Server version: 5.6.37
 -- PHP Version: 5.6.31
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `readby` varchar(32) NOT NULL,
   `askedby` varchar(32) NOT NULL,
   `time` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `questions`
@@ -66,14 +66,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(20) NOT NULL,
   `status` varchar(7) NOT NULL,
   `waspremium` int(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `gender`, `dob`, `account`, `address`, `mobile`, `email`, `password`, `lastlogin`, `accstatus`, `username`, `status`, `waspremium`) VALUES
-(1, 'Test Gebruiker', 'M', '2001-01-01', 'admin', 'street 5', '000113', 'admin@utasks.me', '1c4a5d41b69feb12f1128f8a355f45d92f212062', '2019-09-10 08:32:32', 'ACTIVE', 'admin', 'offline', 1);
+(1, 'Normal User', 'M', '2001-01-01', 'admin', 'street 5', '000113', 'normal@utasks.me', 'df0b5ab474b0dce72f1ff715260887b7d39b5c72', '2019-09-24 02:49:39', 'ACTIVE', 'normal', 'offline', 1);
 
 -- --------------------------------------------------------
 
