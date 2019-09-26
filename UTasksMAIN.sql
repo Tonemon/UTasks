@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 24, 2019 at 07:46 PM
+-- Generation Time: Sep 26, 2019 at 09:58 PM
 -- Server version: 5.6.37
 -- PHP Version: 5.6.31
 
@@ -66,14 +66,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(20) NOT NULL,
   `status` varchar(7) NOT NULL,
   `waspremium` int(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `gender`, `dob`, `account`, `address`, `mobile`, `email`, `password`, `lastlogin`, `accstatus`, `username`, `status`, `waspremium`) VALUES
-(1, 'Normal User', 'M', '2001-01-01', 'admin', 'street 5', '000113', 'normal@utasks.me', 'df0b5ab474b0dce72f1ff715260887b7d39b5c72', '2019-09-24 02:49:39', 'ACTIVE', 'normal', 'offline', 1);
+(1, 'Admin User', 'M', '2001-01-01', 'admin', 'street 5', '000113', 'admin@utasks.me', 'df0b5ab474b0dce72f1ff715260887b7d39b5c72', '2019-09-26 09:58:30', 'ACTIVE', 'admin', 'offline', 1),
+(2, 'Normal User', 'M', '2001-01-01', 'normal', 'street 5', '000113', 'normal@utasks.me', 'df0b5ab474b0dce72f1ff715260887b7d39b5c72', '2019-09-26 09:58:15', 'ACTIVE', 'normal', 'offline', 1);
 
 -- --------------------------------------------------------
 
@@ -116,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `usersnew` (
   `address` varchar(40) NOT NULL,
   `mobile` varchar(11) NOT NULL,
   `password` varchar(32) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usersnew`
@@ -155,6 +156,25 @@ ALTER TABLE `usersnew`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `questions`
+--
+ALTER TABLE `questions`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `usersnew`
+--
+ALTER TABLE `usersnew`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
