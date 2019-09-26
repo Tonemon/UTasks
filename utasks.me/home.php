@@ -1,8 +1,7 @@
 <?php 
 session_start();
-if (!isset($_SESSION['session_tasks_start'])){
+if (!isset($_SESSION['session_tasks_start']))
 	header('location:login?notice=2');
-}  
 ?>
 
 <!DOCTYPE html>
@@ -63,23 +62,23 @@ if (!isset($_SESSION['session_tasks_start'])){
 				}
 			?>
 		
-		<!-- Icon Cards-->
+		<!-- Customizable Icon Cards-->
         <div class="row">
           <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-info o-hidden h-100">
+            <div class="card text-white bg-warning o-hidden h-100">
               <div class="card-body">
                 <div class="card-body-icon">
-                  <i class="fas fa-sticky-note"></i>
+                  <i class="fas fa-clipboard-list"></i>
                 </div>
                 <?php include '_inc/dbconn.php';
-					$countsql = "SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id";
-					$countresult = mysql_query($countsql) or die(mysql_error());
-					$item_count = mysql_num_rows($countresult);
+					$activesql = "SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id WHERE status='ACTIVE'";
+					$activeresult = mysql_query($activesql) or die(mysql_error());
+					$item_count = mysql_num_rows($activeresult);
 				?>	
-                <div class="mr-5"><b><?php echo $item_count; ?></b> Tasks total.</div>
+                <div class="mr-5"><b><?php echo $item_count; ?></b> active Tasks.</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="tasks?show=all">
-                <span class="float-left">View All</span>
+              <a class="card-footer text-white clearfix small z-1" href="tasks?show=active">
+                <span class="float-left">View Tasks <small>(active)</small></span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>
                 </span>
@@ -101,29 +100,7 @@ if (!isset($_SESSION['session_tasks_start'])){
                 <div class="mr-5"><b><?php echo $week_count; ?></b> to complete this week.</div>
               </div>
               <a class="card-footer text-white clearfix small z-1" href="tasks?show=week">
-                <span class="float-left">View Tasks <small>(This week)</small></span>
-                <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-              </a>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-3">
-            <div class="card text-white bg-warning o-hidden h-100">
-              <div class="card-body">
-                <div class="card-body-icon">
-                  <i class="fas fa-clock"></i>
-                </div>
-                <?php include '_inc/dbconn.php';
-					$nearingsql = "SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id WHERE `lastdate` BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 3 DAY)";
-
-					$nearingresult = mysql_query($nearingsql) or die(mysql_error());
-					$nearing_count = mysql_num_rows($nearingresult);
-				?>	
-                <div class="mr-5"><b><?php echo $nearing_count; ?></b> deadlines nearing. <!-- nearing means 3 days --></div>
-              </div>
-              <a class="card-footer text-white clearfix small z-1" href="tasks?show=soon">
-                <span class="float-left">View Tasks <small>(between now and 3 days)</small></span>
+                <span class="float-left">View Tasks <small>(this week)</small></span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>
                 </span>
@@ -145,7 +122,51 @@ if (!isset($_SESSION['session_tasks_start'])){
                 <div class="mr-5"><b><?php echo $passed_count; ?></b> deadlines passed.</div>
               </div>
               <a class="card-footer text-white clearfix small z-1" href="tasks?show=passed">
-                <span class="float-left">View Tasks</span>
+                <span class="float-left">View Tasks <small>(with deadline passed)</small></span>
+                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-dark o-hidden h-100">
+              <div class="card-body">
+                <div class="card-body-icon">
+                  <i class="fas fa-archive"></i>
+                </div>
+                <?php include '_inc/dbconn.php';
+					$archivedsql = "SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id WHERE status='ARCHIVED'";
+
+					$archivedresult = mysql_query($archivedsql) or die(mysql_error());
+					$archived_count = mysql_num_rows($archivedresult);
+				?>	
+                <div class="mr-5"><b><?php echo $archived_count; ?></b> Tasks archived.</div>
+              </div>
+              <a class="card-footer text-white clearfix small z-1" href="tasks?show=archived">
+                <span class="float-left">View Tasks <small>(archived)</small></span>
+                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-white bg-info o-hidden h-100">
+              <div class="card-body">
+                <div class="card-body-icon">
+                  <i class="fas fa-sticky-note"></i>
+                </div>
+                <?php include '_inc/dbconn.php';
+					$totalsql = "SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id";
+
+					$totalresult = mysql_query($totalsql) or die(mysql_error());
+					$total_count = mysql_num_rows($totalresult);
+				?>	
+                <div class="mr-5"><b><?php echo $total_count; ?></b> Tasks total.</div>
+              </div>
+              <a class="card-footer text-white clearfix small z-1" href="tasks?show=all">
+                <span class="float-left">View All</span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>
                 </span>
@@ -154,28 +175,28 @@ if (!isset($_SESSION['session_tasks_start'])){
           </div>
         </div>
 
-		  <!-- Bookmarked tasks section -->
+		<!-- Bookmarked tasks section -->
 		  <div class="row">
 			<div class="col-xl-12 mb-6">
-			  <div class="card o-hidden mb-3" id="general">
+			  <div class="card o-hidden mb-3">
+			  	<?php include '_inc/dbconn.php';
+					$sql="SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id WHERE favorite=1";
+					$result=  mysql_query($sql) or die(mysql_error());
+					$num_rows = mysql_num_rows($result);
+				?>
 				  <div class="panel-group" id="accordion">
 					  <div class="panel panel-default">
 						<div class="panel-heading">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapseBookmarked" style="color: inherit; text-decoration: none">
 							  <div class="card-header">
 							  <i class="fas fa-star"></i>
-							  Bookmarked Tasks</div>
+							  Bookmarked Tasks (<b><?php echo $num_rows; ?></b>)</div>
 							</a>
 						</div>
 						<div id="collapseBookmarked" class="panel-collapse collapse">
 						  <div class="panel-body">
 							  <div class="card-body">
-								<form action="task-edit" method="POST">
-									<?php include '_inc/dbconn.php';
-										$sql="SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id WHERE favorite=1";
-										$result=  mysql_query($sql) or die(mysql_error());
-										$num_rows = mysql_num_rows($result);
-									?>	
+								<form action="task-edit" method="POST">	
 									<small id="infoHelp" class="form-text">
 									<?php
 										if ($num_rows == "0"){
@@ -191,19 +212,19 @@ if (!isset($_SESSION['session_tasks_start'])){
 									  			echo '<div class="list-group">';
 												while($rws=  mysql_fetch_array($result)){
 													// color matching the badges
-													if ($rws[14] == "LIGHTBLUE") {
+													if ($rws[15] == "LIGHTBLUE") {
 														$badgecolor = "info";
-													} elseif ($rws[14] == "BLUE") {
+													} elseif ($rws[15] == "BLUE") {
 														$badgecolor = "primary";
-													} elseif ($rws[14] == "GRAY") {
+													} elseif ($rws[15] == "GRAY") {
 														$badgecolor = "secondary";
-													} elseif ($rws[14] == "GREEN") {
+													} elseif ($rws[15] == "GREEN") {
 														$badgecolor = "success";
-													} elseif ($rws[14] == "RED") {
+													} elseif ($rws[15] == "RED") {
 														$badgecolor = "danger";
-													} elseif ($rws[14] == "YELLOW") {
+													} elseif ($rws[15] == "YELLOW") {
 														$badgecolor = "warning";
-													} elseif ($rws[14] == "BLACK") {
+													} elseif ($rws[15] == "BLACK") {
 														$badgecolor = "dark";
 													}
 
@@ -232,7 +253,7 @@ if (!isset($_SESSION['session_tasks_start'])){
 													echo '</div>';
 													echo '<p class="mb-1"><i>'.substr($rws[3], 0, 100).'...</i></p>';
 													if ($rws[9] != ""){
-													echo "<small><i>Saved with Label:</i> <span class='badge badge-".$badgecolor."'>".$rws[13]."</span>. Priority: <span class='badge badge-".$priority_color."'>".$priority."</span></small>";
+													echo "<small><i>Saved with Label:</i> <span class='badge badge-".$badgecolor."'>".$rws[14]."</span>. Priority: <span class='badge badge-".$priority_color."'>".$priority."</span></small>";
 													} else {
 													echo "<small><i>Not saved with a label.</i></small>";
 													}	
@@ -250,47 +271,47 @@ if (!isset($_SESSION['session_tasks_start'])){
 			</div>
 		  </div> <!-- /.row -->
 
-		  <!-- Other tasks section -->
+		<!-- Other tasks section -->
 		  <div class="row">
 			<div class="col-xl-12 mb-6">
-			  <div class="card o-hidden mb-3" id="general">
+			  <div class="card o-hidden mb-3">
+			  	<?php include '_inc/dbconn.php';
+					$sql = "SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id WHERE favorite=0 AND status='ACTIVE'";
+					$result = mysql_query($sql) or die(mysql_error());
+					$num_rows = mysql_num_rows($result);
+				?>	
 				  <div class="panel-group" id="accordion">
 					  <div class="panel panel-default">
 						<div class="panel-heading">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapseTasks" style="color: inherit; text-decoration: none">
 							  <div class="card-header">
 							  <i class="far fa-sticky-note"></i>
-							  Your Tasks</div>
+							  Your Tasks (<b><?php echo $num_rows; ?></b>)</div>
 							</a>
 						</div>
-						<div id="collapseTasks" class="panel-collapse in">
+						<div id="collapseTasks" class="panel-collapse collapse"><!-- Change 'collapse' to 'in' to make the accordion open on default -->
 						  <div class="panel-body">
 							  <div class="card-body">
 								<form action="task-edit" method="POST">
-									<?php include '_inc/dbconn.php';
-										$sql="SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id WHERE favorite=0";
-										$result=  mysql_query($sql) or die(mysql_error());
-										$num_rows = mysql_num_rows($result);
-									?>	
-									<small id="emailHelp" class="form-text">You have <b><?php echo $num_rows; if ($num_rows == "1") { echo " task</b>."; } else { echo " tasks</b> in total."; } ?> Select a <b><i class="fas fa-sticky-note"></i> task</b> below to view/edit. Can't find a <b><i class="fas fa-sticky-note"></i> task</b>? Go to the <b><a href="tasks"><i class="fas fa-search"></i> search page</a></b>.</small><br>
+									<small id="emailHelp" class="form-text">You have <b><?php echo $num_rows; if ($num_rows == "1") { echo " active task</b>."; } else { echo " active tasks</b> in total."; } ?> Select a <b><i class="fas fa-sticky-note"></i> task</b> below to view/edit. Can't find a <b><i class="fas fa-sticky-note"></i> task</b>? Go to the <b><a href="tasks"><i class="fas fa-search"></i> search page</a></b>.</small><br>
 
 									  <?php
 									  			echo '<div class="list-group">';
 												while($rws = mysql_fetch_array($result)){
 													// color matching the badges
-													if ($rws[14] == "LIGHTBLUE") {
+													if ($rws[15] == "LIGHTBLUE") {
 														$badgecolor = "info";
-													} elseif ($rws[14] == "BLUE") {
+													} elseif ($rws[15] == "BLUE") {
 														$badgecolor = "primary";
-													} elseif ($rws[14] == "GRAY") {
+													} elseif ($rws[15] == "GRAY") {
 														$badgecolor = "secondary";
-													} elseif ($rws[14] == "GREEN") {
+													} elseif ($rws[15] == "GREEN") {
 														$badgecolor = "success";
-													} elseif ($rws[14] == "RED") {
+													} elseif ($rws[15] == "RED") {
 														$badgecolor = "danger";
-													} elseif ($rws[14] == "YELLOW") {
+													} elseif ($rws[15] == "YELLOW") {
 														$badgecolor = "warning";
-													} elseif ($rws[14] == "BLACK") {
+													} elseif ($rws[15] == "BLACK") {
 														$badgecolor = "dark";
 													}
 
@@ -319,13 +340,109 @@ if (!isset($_SESSION['session_tasks_start'])){
 													echo '</div>';
 													echo '<p class="mb-1"><i>'.substr($rws[3], 0, 100).'...</i></p>';
 													if ($rws[9] != ""){
-													echo "<small><i>Saved with Label:</i> <span class='badge badge-".$badgecolor."'>".$rws[13]."</span>. Priority: <span class='badge badge-".$priority_color."'>".$priority."</span></small>";
+													echo "<small><i>Saved with Label:</i> <span class='badge badge-".$badgecolor."'>".$rws[14]."</span>. Priority: <span class='badge badge-".$priority_color."'>".$priority."</span></small>";
 													} else {
 													echo "<small><i>Not saved with a label.</i></small>";
 													}	
 													echo '</a>';
 												} 
 											echo '</div>'; ?>
+									</form>
+							  </div>
+						  </div>
+						</div>
+					  </div>
+				  </div> 
+			  </div>
+			</div>
+		  </div> <!-- /.row -->
+
+		<!-- Archived tasks section -->
+		  <div class="row">
+			<div class="col-xl-12 mb-6">
+			  <div class="card o-hidden mb-3">
+			  	<?php include '_inc/dbconn.php';
+					$sql = "SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id WHERE status='ARCHIVED'";
+					$result=  mysql_query($sql) or die(mysql_error());
+					$num_rows3 = mysql_num_rows($result);
+				?>	
+				  <div class="panel-group" id="accordion">
+					  <div class="panel panel-default">
+						<div class="panel-heading">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseArchived" style="color: inherit; text-decoration: none">
+							  <div class="card-header">
+							  <i class="fas fa-box"></i>
+							  Archived Tasks (<b><?php echo $num_rows3; ?></b>)</div>
+							</a>
+						</div>
+						<div id="collapseArchived" class="panel-collapse collapse">
+						  <div class="panel-body">
+							  <div class="card-body">
+								<form action="task-edit" method="POST">
+									<small id="infoHelp" class="form-text">
+									<?php
+										if ($num_rows3 == "0"){
+											echo 'You have <b>0 archived tasks</b>. Change the <b><i class="fas fa-sticky-note"></i> task</b> status from "active" to "archived" on the <b><i class="fas fa-pencil-alt"></i>edit</b> page to make them appear here.';
+										} elseif ($num_rows3 == "1"){
+											echo 'You have <b>1 archived task</b>. Select a <b><i class="fas fa-sticky-note"></i> task</b> below to view/edit.';
+										} else {
+											echo 'You have <b>'.$num_rows3.' archived tasks</b>. Select a <b><i class="fas fa-sticky-note"></i> task</b> below to view/edit.';
+										}
+									?></small><br>
+
+									  <?php
+									  			echo '<div class="list-group">';
+												while($rws=  mysql_fetch_array($result)){
+													// color matching the badges
+													if ($rws[15] == "LIGHTBLUE") {
+														$badgecolor = "info";
+													} elseif ($rws[15] == "BLUE") {
+														$badgecolor = "primary";
+													} elseif ($rws[15] == "GRAY") {
+														$badgecolor = "secondary";
+													} elseif ($rws[15] == "GREEN") {
+														$badgecolor = "success";
+													} elseif ($rws[15] == "RED") {
+														$badgecolor = "danger";
+													} elseif ($rws[15] == "YELLOW") {
+														$badgecolor = "warning";
+													} elseif ($rws[15] == "BLACK") {
+														$badgecolor = "dark";
+													}
+
+													if ($rws[11] == "0"){
+														$priority = "None";
+														$priority_color = "secondary";
+													} elseif ($rws[11] == "1"){
+														$priority = "Low";
+														$priority_color = "info";
+													} elseif ($rws[11] == "2"){
+														$priority = "Medium";
+														$priority_color = "warning";
+													} elseif ($rws[11] == "3"){
+														$priority = "High";
+														$priority_color = "danger";
+													}
+
+													// making date readable
+													$Date = date("l, d F Y, H:i", strtotime($rws[5]));
+														
+													// Item output
+  													echo '<a href="edit?task='.$rws[0].'" class="list-group-item list-group-item-action flex-column align-items-start">';
+													echo '<div class="d-flex w-100 justify-content-between">';
+													echo '<h5 class="mb-1"><i class="fas fa-sticky-note"></i> '.$rws[2].'</h5>';
+													echo '<small><i>Todo before:</i> <b>'.$Date.'</b></small>';
+													echo '</div>';
+													echo '<p class="mb-1"><i>'.substr($rws[3], 0, 100).'...</i></p>';
+													if ($rws[9] != ""){
+													echo "<small><i>Saved with Label:</i> <span class='badge badge-".$badgecolor."'>".$rws[14]."</span>. Priority: <span class='badge badge-".$priority_color."'>".$priority."</span></small>";
+													} else {
+													echo "<small><i>Not saved with a label.</i></small>";
+													}	
+													echo '</a>';
+												} 
+
+												echo '</div>'; ?>
 									</form>
 							  </div>
 						  </div>

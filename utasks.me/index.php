@@ -55,7 +55,7 @@
 	        <a class="navbar-brand text-white"><small><small><i class="fas fa-info-circle"></i> You are already logged in. Use the button on the left instead of the login button to continue.</small></small></a>
 	          <ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-					  <b><a class="nav-link" href="home">Click here to go to your tasks &raquo;</a></b>
+					  <b><a class="nav-link" href="login">Click here to go to your tasks &raquo;</a></b>
 					</li>
 	          </ul>
 	      </div>
@@ -153,7 +153,7 @@
 		<div class="col-lg-4">
 		  <h1>Contact Form</h1>
 		  <hr class=" accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 40%;">
-		  <p>Please enter your full name, your type of question, a valid email address and your message. Please describe your question as accurate as you can so our staff can answer it precisely. <br><br>
+		  <p>Please enter your full name, your type of question, a valid email address and your message. If you forgot your password select the 'Forgot Password' option and keep your information ready to identify yourself. <br><br> Please describe your question as accurate as you can so our staff can answer it precisely. <br><br>
 		  <b>All fields in this form are required.</b></p>
 		</div>
 		<div class="col-lg-1"></div>
@@ -171,13 +171,13 @@
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label for="form_need">Select your question category</label>
+								<label for="form_need">Select your type of question</label>
 								<select id="form_need" name="q_type" class="form-control" required="required" data-error="Select your category.">
 									<option value="">...</option>
-									<option value="Services">More information about us</option>
-									<option value="UTasks">UTasks Service</option>
-									<option value="Bug">Exploit/Bug Found</option>
+									<option value="Services">Forgot Password</option>
+									<option value="UTasks">About UTasks/UTasks Group</option>
 									<option value="Job">Job Application</option>
+									<option value="Bug">Exploit/Bug Found</option>
 									<option value="Other">Other</option>
 								</select>
 								<div class="help-block with-errors"></div>

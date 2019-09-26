@@ -9,13 +9,13 @@ if(isset($_REQUEST['loginbutton'])){
 
     if (preg_match("/@/", $login_user)) { // check for @, if present:
         // getting usefull information for session creation (with email)
-        $sqlquery = "SELECT username,email,password,accstatus,status,id FROM UTasksMAIN.users WHERE email='$login_user' AND password='$login_password'";
+        $sqlquery = "SELECT username,email,password,accstatus,status,id,account FROM UTasksMAIN.users WHERE email='$login_user' AND password='$login_password'";
         $result = mysql_query($sqlquery) or die(mysql_error());
         $arr =  mysql_fetch_array($result);
 
-    } else { // no @ present, so login with username:
+    } else { // no @ present, so user is trying to login with username:
         // getting usefull information for session creation (with username)
-        $sqlquery = "SELECT username,email,password,accstatus,status,id FROM UTasksMAIN.users WHERE username='$login_user' AND password='$login_password'";
+        $sqlquery = "SELECT username,email,password,accstatus,status,id,account FROM UTasksMAIN.users WHERE username='$login_user' AND password='$login_password'";
         $result = mysql_query($sqlquery) or die(mysql_error());
         $arr =  mysql_fetch_array($result);
     }
@@ -26,13 +26,19 @@ if(isset($_REQUEST['loginbutton'])){
 	  $db_accstatus = $arr[3];
 	  $status = $arr[4];
     $db_id = $arr[5];
+    $db_acctype = $arr[6];
 
-	  // This query checks if user is permanently deleted (from 'usersclosed' table)
-	  $del_sql = "SELECT username FROM UTasksMAIN.usersclosed WHERE username='$db_username'";
-    $del_result = mysql_query($del_sql) or die(mysql_error());
-    $del_rws = mysql_fetch_array($del_result);
-    
-    if (($login_user == $db_username || $login_user == $db_email) && $login_password == $db_pass){ // check if submitted information is correct
+    if ($db_username == "") { // means that user cannot be found in users table/might be deleted
+      // This query checks if user is permanently deleted (from 'usersclosed' table)
+      $del_sql = "SELECT username FROM UTasksMAIN.usersclosed WHERE username='$login_user'";
+      $del_result = mysql_query($del_sql) or die(mysql_error());
+      $del_rws = mysql_fetch_array($del_result);
+
+      if (isset($del_rws[0])){
+        header('location:login?notice=1');
+      }
+
+    } elseif (($login_user == $db_username || $login_user == $db_email) && $login_password == $db_pass){ // check if submitted information is correct
       if ($db_accstatus == "ACTIVE"){ // check if account status is active or not
         session_start();
         $_SESSION['session_tasks_start'] = 1;
@@ -44,7 +50,13 @@ if(isset($_REQUEST['loginbutton'])){
         // setting user status to online
         $setonline = "UPDATE UTasksMAIN.users SET status='online' WHERE email='$db_email'";
         mysql_query($setonline) or die(mysql_error());
-        header('location:home');
+
+        if ($arr[6] == "admin"){ // redirect different user accounts to different dashboards
+          header('location:admin?dashboard');
+        } else {
+          header('location:home');
+        } 
+
       } else { // account status is set to disabled
         header('location:login?error=3');
       }
@@ -55,9 +67,8 @@ if(isset($_REQUEST['loginbutton'])){
 
 <?php 
 session_start(); // check if session active to redirect user from login page
-  if ($_SESSION['session_tasks_start'] == "1"){
-    header('location:home');   
-  }  
+  if (isset($_SESSION['session_tasks_start'])) 
+    header('location:home');     
 ?>
 
 <!DOCTYPE html>
@@ -147,8 +158,8 @@ session_start(); // check if session active to redirect user from login page
 			      <button class="btn btn-primary btn-block" type="submit" name="loginbutton">Login <i class="fas fa-sign-in-alt"></i></button>
           </form>
           <div class="text-center">
-            <a class="d-block small mt-3" href="http://utasks.me/register">Register an Account</a>
-            <a class="d-block small" href="javascript:Forgot();">Forgot Password?</a> 
+            <a class="d-block small mt-3" href="http://utasks.me/#register" target="_blank">Register an Account</a>
+            <a class="d-block small" href="http://utasks.me/#contact" target="_blank">Forgot Password?</a> 
           </div>
         </div>
       </div>
