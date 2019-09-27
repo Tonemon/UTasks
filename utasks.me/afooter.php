@@ -93,7 +93,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"> Want to go <i class="far fa-gem"></i> Premium?</h5>
+            <h5 class="modal-title" id="exampleModalLabel"><i class="far fa-gem"></i> Want to go Premium?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>

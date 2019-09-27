@@ -13,17 +13,16 @@
   $userdat_lastlogin = $rws[9];
   $userdat_accstatus = $rws[10];
   $status = $rws[12];
-  $waspremium = $rws[13];
                 
-  $address = $rws[5];
-  $acc_type = $rws[4];
-  $gender = $rws[2];
-  $mobile = $rws[6];
-  $email = $rws[7];
-  $dob = $rws[3];
+  $userdat_address = $rws[5];
+  $userdat_acctype = $rws[4];
+  $userdat_gender = $rws[2];
+  $userdat_mobile = $rws[6];
+  $userdat_email = $rws[7];
+  $userdat_dob = $rws[3];
         
   // checking for corrupted sessions
-  if ($email = ""){ // often happends when user is deleted and still logged in or corrupted session
+  if ($userdat_email = ""){ // often happends when user is deleted and still logged in or corrupted session
     session_destroy();
     header('location:login?notice=1');
 
@@ -51,7 +50,7 @@
               <span>New task</span>
             </a>
         </li>
-        <?php if ($acc_type == "normal") { ?>
+        <?php if ($userdat_acctype == "normal") { ?>
         <li class="nav-item">
           <a class="nav-link" href="home">
             <i class="fas fa-tachometer-alt fa-lg"></i></i><span>Dashboard</span>
@@ -67,7 +66,7 @@
             <i class="fas fa-folder-open fa-lg"></i><span>Labels</span>
           </a>
         </li>
-        <?php } elseif ($acc_type == "admin"){ ?>
+        <?php } elseif ($userdat_acctype == "admin"){ ?>
           <li class="nav-item">
             <a class="nav-link" href="home">
               <i class="fas fa-tachometer-alt fa-lg"></i></i><span>Dashboard</span>
@@ -101,7 +100,7 @@
               <i class="fas fa-folder-open fa-lg"></i><span>Labels</span>
             </a>
           </li>
-        <?php } if ($acc_type == "normal"){ ?>           
+        <?php } if ($userdat_acctype == "normal"){ ?>           
         <li class="nav-item mb-5">
           <a class="nav-link" href="#" id="pagesDropdown" role="button" data-toggle="modal" data-target="#premiumModal" aria-haspopup="true" aria-expanded="false">
             <i class="far fa-gem"></i><span>Premium!</span>
@@ -113,16 +112,11 @@
             <i class="fas fa-user-circle fa-lg"></i> <span><?php echo $userdat_username; ?></span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <h6 class="dropdown-header">Welcome user <b><?php echo $userdat_name; ?></b>!</h6>
+            <h6 class="dropdown-header">Welcome <b><?php echo $userdat_name; ?></b>!</h6>
             <!-- devider could go here <div class="dropdown-divider"></div> -->
             <a class="dropdown-item" href="users"><i class="fas fa-fw fa-users"></i> All Users</a>
-            <?php if ($acc_type == "admin"){ ?>
-              <a class="dropdown-item" href="support?new"><i class="fas fa-fw fa-life-ring"></i> Support Panel</a>
-              <a class="dropdown-item" href="admin?new"><i class="fas fa-fw fa-wrench"></i> Admin Panel</a>
-            <?php } elseif ($acc_type == "normal"){ ?>
-              <a class="dropdown-item" href="#" role="button" data-toggle="modal" data-target="#premiumModal" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-gem"></i> UTasks Premium</a>
-            <?php } ?>
-              <a class="dropdown-item" href="account"><i class="fas fa-fw fa-cogs"></i> Settings</a>
+              <a class="dropdown-item" href="account"><i class="fas fa-fw fa-user-circle"></i> My Account</a>
+              <a class="dropdown-item" href="settings"><i class="fas fa-fw fa-cogs"></i> Settings</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                <i class="fas fa-fw fa-sign-out-alt"></i> Logout

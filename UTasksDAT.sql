@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 26, 2019 at 09:58 PM
+-- Generation Time: Sep 27, 2019 at 03:55 PM
 -- Server version: 5.6.37
 -- PHP Version: 5.6.31
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `label1` (
 
 INSERT INTO `label1` (`label_id`, `name`, `color`) VALUES
 (1, 'Inbox ðŸ“š', 'GREEN'),
-(2, 'LOL ðŸ’»', 'BLUE');
+(2, 'LOL ðŸ’»', 'RED');
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `tasks1` (
 --
 
 INSERT INTO `tasks1` (`id`, `user`, `title`, `description`, `dateon`, `lastdate`, `label`, `location`, `people`, `notification`, `favorite`, `priority`, `status`) VALUES
-(1, 'Admin User', 'Test task', 'Emptyness', '2019-09-10 12:48:51', '2020-03-21 23:02:39', 1, 'Home', 'Me', 0, 1, 3, 'ACTIVE');
+(1, 'Admin User', 'Normal Task', 'Normal task with high priority', '2019-09-27 15:55:15', '0000-00-00 00:00:00', 2, 'Home', 'Me', 0, 0, 3, 'ACTIVE');
 
 -- --------------------------------------------------------
 

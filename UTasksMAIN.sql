@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 26, 2019 at 09:58 PM
+-- Generation Time: Sep 27, 2019 at 03:56 PM
 -- Server version: 5.6.37
 -- PHP Version: 5.6.31
 
@@ -65,16 +65,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   `accstatus` varchar(8) NOT NULL,
   `username` varchar(20) NOT NULL,
   `status` varchar(7) NOT NULL,
-  `waspremium` int(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `card_active` int(1) NOT NULL DEFAULT '1',
+  `card_week` int(1) NOT NULL DEFAULT '1',
+  `card_passed` int(1) NOT NULL DEFAULT '1',
+  `card_archived` int(1) NOT NULL DEFAULT '1',
+  `card_total` int(1) NOT NULL DEFAULT '1',
+  `section_bookmark` int(1) NOT NULL DEFAULT '0',
+  `section_active` int(1) NOT NULL DEFAULT '0',
+  `section_archived` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `gender`, `dob`, `account`, `address`, `mobile`, `email`, `password`, `lastlogin`, `accstatus`, `username`, `status`, `waspremium`) VALUES
-(1, 'Admin User', 'M', '2001-01-01', 'admin', 'street 5', '000113', 'admin@utasks.me', 'df0b5ab474b0dce72f1ff715260887b7d39b5c72', '2019-09-26 09:58:30', 'ACTIVE', 'admin', 'offline', 1),
-(2, 'Normal User', 'M', '2001-01-01', 'normal', 'street 5', '000113', 'normal@utasks.me', 'df0b5ab474b0dce72f1ff715260887b7d39b5c72', '2019-09-26 09:58:15', 'ACTIVE', 'normal', 'offline', 1);
+INSERT INTO `users` (`id`, `name`, `gender`, `dob`, `account`, `address`, `mobile`, `email`, `password`, `lastlogin`, `accstatus`, `username`, `status`, `card_active`, `card_week`, `card_passed`, `card_archived`, `card_total`, `section_bookmark`, `section_active`, `section_archived`) VALUES
+(1, 'Admin User', 'M', '2001-01-01', 'admin', 'street 5', '000113', 'admin@utasks.me', '1c4a5d41b69feb12f1128f8a355f45d92f212062', '2019-09-27 03:55:40', 'ACTIVE', 'admin', 'offline', 1, 0, 0, 1, 1, 0, 1, 0),
+(2, 'Normal User', 'M', '2001-01-01', 'normal', 'street 5', '000113', 'normal@utasks.me', 'df0b5ab474b0dce72f1ff715260887b7d39b5c72', '2019-09-27 03:52:21', 'ACTIVE', 'normal', 'offline', 0, 1, 1, 0, 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 

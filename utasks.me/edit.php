@@ -147,8 +147,8 @@ if (!isset($_SESSION['session_tasks_start']))
 									</div>
 									<small class="form-text">Task Description</small>
 									<textarea class="form-control" name="task_alter_content" rows="5"><?php echo $rws2[3]; ?></textarea>
-									<small class="form-text"><input type="checkbox" name="task_alter_bookmark" <?php if ($rws2[10] == "1"){ echo "checked";} ?>> Bookmark Task (This will pin your task at the top of the tasks page.)</small>
-									<small class="form-text"><input type="checkbox" name="task_alter_archive" <?php if ($rws2[12] == "ARCHIVED"){ echo "checked";} ?>> Archive Task (This will move your task to the archived section.)
+									<small class="form-text"><input type="checkbox" value="1" name="task_alter_bookmark" <?php if ($rws2[10] == "1"){ echo "checked";} ?>> Bookmark Task (This will pin your task at the top of the tasks page.)</small>
+									<small class="form-text"><input type="checkbox" value="1" name="task_alter_archive" <?php if ($rws2[12] == "ARCHIVED"){ echo "checked";} ?>> Archive Task (This will move your task to the archived section.)
 									<div class="text-right">
 										Last Modified: <?php echo $rws2[4]; ?>&nbsp;
 										<a href="home" class="btn btn-secondary">Discard</a>
