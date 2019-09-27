@@ -25,4 +25,5 @@ Het volgende moet dan in je 'hosts' bestand staan:
 **beide databases** door zijn rechten aan te passen (Edit Privileges > Database > Add privileges on following databases > Grant all & Go).
 6. Importeer beide bestanden in de juiste databases (UTasksDAT.sql in UTasksDAT en UTasksMAIN.sql in UTasksMAIN database).
 7. Ga naar de <a href="http://utasks.me" target="_blank">homepagina</a> of bank <a href="http://utasks.me/login" target="_blank">login pagina</a> en log in met de volgende informatie:
-<pre>Gebruikersnaam/Email: test / test@utasks.me, wachtwoord: test</pre>
+<pre>Gebruikersnaam: admin / Email: admin@utasks.me, wachtwoord: adminpassword
+Gebruikersnaam: normal / Email: normal@utasks.me, wachtwoord: normalpassword</pre>
