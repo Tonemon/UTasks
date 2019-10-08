@@ -53,7 +53,7 @@
         <?php if ($userdat_acctype == "normal") { ?>
         <li class="nav-item">
           <a class="nav-link" href="home">
-            <i class="fas fa-tachometer-alt fa-lg"></i></i><span>Dashboard</span>
+            <i class="fas fa-tachometer-alt fa-lg"></i><span>Dashboard</span>
           </a>
         </li>
         <li class="nav-item">

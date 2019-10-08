@@ -476,7 +476,7 @@ if (!isset($_SESSION['session_tasks_start']))
 
 	<!-- Quick Dashboard customization-->
     <a href="settings" title="Customize dashboard">
-    	<div style="position: fixed;top: 0;right: 20px;background-color: #28a745;box-shadow: 0 4px 8px rgba(0,0,0,.05);border-radius: 0 0 3px 3px;font-size: 12px;padding: 10px 10px;">
+    	<div style="position: fixed;top: 0;right: 20px;background-color: #28a745;box-shadow: 0 4px 8px rgba(0,0,0,.05);border-radius: 0 0 20px 20px;font-size: 12px;padding: 10px 10px;">
     		<i class="fas fa-fw fa-2x fa-palette text-white"></i>
     	</div>
     </a>

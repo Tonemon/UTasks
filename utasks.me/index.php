@@ -52,7 +52,7 @@
 	    	if (isset($_SESSION['session_tasks_start'])){ ?>
 	    <nav class="navbar navbar-expand-sm navbar-dark bg-green fixed-top fixed-top-2">
 	      <div class="container">
-	        <a class="navbar-brand text-white"><small><small><i class="fas fa-info-circle"></i> You are already logged in. Use the button on the left instead of the login button to continue.</small></small></a>
+	        <a class="navbar-brand text-white"><small><small><i class="fas fa-info-circle"></i> You are already logged in.</small></small></a>
 	          <ul class="navbar-nav ml-auto">
 					<li class="nav-item">
 					  <b><a class="nav-link" href="login">Click here to go to your tasks &raquo;</a></b>
