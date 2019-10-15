@@ -50,7 +50,7 @@
               <span>New task</span>
             </a>
         </li>
-        <?php if ($userdat_acctype == "normal") { ?>
+        <?php if ($userdat_acctype == "normal" OR $userdat_acctype == "premium") { ?>
         <li class="nav-item">
           <a class="nav-link" href="home">
             <i class="fas fa-tachometer-alt fa-lg"></i><span>Dashboard</span>
@@ -61,7 +61,7 @@
             <i class="fas fa-sticky-note fa-lg"></i><span>All Tasks</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item <?php if ($userdat_acctype == 'premium'){ echo 'mb-5';} ?>">
           <a class="nav-link" href="labels">
             <i class="fas fa-folder-open fa-lg"></i><span>Labels</span>
           </a>
@@ -109,7 +109,12 @@
       <?php } ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user-circle fa-lg"></i> <span><?php echo $userdat_username; ?></span>
+            <?php if ($userdat_acctype == "normal"){ ?>
+            <i class="fas fa-user-circle fa-lg"></i>
+            <?php } else { ?>
+            <i class="fas fa-crown"></i>
+          <?php } ?>
+            <span><?php echo $userdat_username; ?></span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <h6 class="dropdown-header">Welcome <b><?php echo $userdat_name; ?></b>!</h6>
