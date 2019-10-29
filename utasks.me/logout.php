@@ -9,7 +9,7 @@
 	mysql_query($sql) or die("Could not set your lastlogin time.");
 	
 	// set user status to offline
-	$setoffline="UPDATE UTasksMAIN.users SET status='offline' WHERE id='$id'";
+	$setoffline = "UPDATE UTasksMAIN.users SET status='offline' WHERE id='$id'";
 	mysql_query($setoffline) or die("Could not set your status to offline.");
 
 	// destroy session and redirect to message 'logged out successfully'

@@ -109,7 +109,7 @@ if (!isset($_SESSION['session_tasks_start']))
 								<td><input type="checkbox" value="1" name="ccard_total" <?php if ($arr[4] == "1"){ echo 'checked'; } ?>> Total</td>
 							</tr></table><br>
 							<table>
-							<tr><td><b>Open/Close Sections &nbsp;</b></td>
+							<tr><td><b>Open Sections &nbsp;</b></td>
 								<td><input type="checkbox" value="1" name="ssection_bookmarked" <?php if ($arr[5] == "1"){ echo 'checked'; } ?>> Bookmarked</td>
 							</tr>
 							<tr><td></td>

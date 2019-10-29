@@ -41,10 +41,10 @@
             <option value="" selected>None</option>
               <?php include '_inc/dbconn.php';
                 $sql = "SELECT * FROM UTasksDAT.label".$userdat_id;
-                $result=  mysql_query($sql) or die(mysql_error());
+                $result = mysql_query($sql) or die(mysql_error());
                 $num_rows = mysql_num_rows($result);
 
-                while($rws=  mysql_fetch_array($result)){
+                while($rws = mysql_fetch_array($result)){
                   // displaying labels
                   echo "<option value='".$rws[0]."'>".$rws[1]." (".strtolower($rws[2]).")</option>";
                 } 

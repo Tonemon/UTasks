@@ -47,17 +47,17 @@ if (!isset($_SESSION['session_tasks_start']))
 							$total = "SELECT count(*) FROM UTasksMAIN.users"; // count total users
 						}
 
-						$countTotal=  mysql_query($total) or die(mysql_error());
+						$countTotal = mysql_query($total) or die(mysql_error());
 						$resTotal = mysql_fetch_array($countTotal);
 
 						if ($userdat_acctype != "admin"){
 							$online = "SELECT count(*) FROM UTasksMAIN.users WHERE status='online' AND account = 'premium' OR status='online' AND account = 'normal'"; // count users online
 						} else {
-							$online="SELECT count(*) FROM UTasksMAIN.users WHERE status='online'"; // count users online
+							$online = "SELECT count(*) FROM UTasksMAIN.users WHERE status='online'"; // count users online
 						}
 
-						$countOnline=  mysql_query($online) or die(mysql_error());
-						$resOnline= mysql_fetch_array($countOnline);
+						$countOnline = mysql_query($online) or die(mysql_error());
+						$resOnline = mysql_fetch_array($countOnline);
 					?>
 					<p><i class="fas fa-info-circle"></i> There are <b><?php echo $resOnline[0];?></b>/<b><?php echo $resTotal[0]; ?></b> users <b>online</b>. Online users have an <span class='badge badge-success'>online</span> badge, while offline users have an <span class='badge badge-secondary'>offline</span> badge as their status.</p>
 					<div class="table-responsive">

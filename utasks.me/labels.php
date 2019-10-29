@@ -139,7 +139,7 @@ if (!isset($_SESSION['session_tasks_start']))
 										  </thead>
 										  <tbody>
 											<?php
-												while($rws = mysql_fetch_array($result)){
+												while ($rws = mysql_fetch_array($result)){
 													// color matching for the badges
 													if ($rws[2] == "LIGHTBLUE") {
 														$badgecolor = "info";

@@ -44,9 +44,9 @@ if (!isset($_SESSION['session_tasks_start']))
 		}
 	} elseif (isset($_REQUEST['task'])){ // View task request
 		$itemid = $_GET['task'];
-			$sql2="SELECT * FROM UTasksDAT.tasks".$account_id." LEFT JOIN UTasksDAT.label".$account_id." on UTasksDAT.tasks".$account_id.".label = label".$account_id.".label_id WHERE id='$itemid'";
-			$result2=  mysql_query($sql2) or die(mysql_error());
-			$rws2=  mysql_fetch_array($result2);
+			$sql2 = "SELECT * FROM UTasksDAT.tasks".$account_id." LEFT JOIN UTasksDAT.label".$account_id." on UTasksDAT.tasks".$account_id.".label = label".$account_id.".label_id WHERE id='$itemid'";
+			$result2 = mysql_query($sql2) or die(mysql_error());
+			$rws2 = mysql_fetch_array($result2);
 		?>
 <html lang="en">
   <head>

@@ -205,8 +205,8 @@ if (!isset($_SESSION['session_tasks_start']))
 			<div class="col-xl-12 mb-6">
 			  <div class="card o-hidden mb-3">
 			  	<?php include '_inc/dbconn.php';
-					$sql="SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id WHERE favorite=1";
-					$result=  mysql_query($sql) or die(mysql_error());
+					$sql = "SELECT * FROM UTasksDAT.tasks".$userdat_id." LEFT JOIN UTasksDAT.label".$userdat_id." on UTasksDAT.tasks".$userdat_id.".label = label".$userdat_id.".label_id WHERE favorite=1";
+					$result = mysql_query($sql) or die(mysql_error());
 					$num_rows = mysql_num_rows($result);
 				?>
 				  <div class="panel-group" id="accordion">
@@ -218,7 +218,7 @@ if (!isset($_SESSION['session_tasks_start']))
 							  Bookmarked Tasks (<b><?php echo $num_rows; ?></b>)</div>
 							</a>
 						</div>
-						<div id="collapseBookmarked" class="panel-collapse <?php if ($arr2[0] == "1"){ echo'in'; } else { echo 'collapse'; }?>">
+						<div id="collapseBookmarked" class="panel-collapse <?php if ($arr2[0] == "1"){ echo 'in'; } else { echo 'collapse'; }?>">
 						  <div class="panel-body">
 							  <div class="card-body">
 								<form action="task-edit" method="POST">	
@@ -234,7 +234,7 @@ if (!isset($_SESSION['session_tasks_start']))
 									?></small><br>
 									<?php
 									  	echo '<div class="list-group">';
-										while($rws=  mysql_fetch_array($result)){
+										while($rws = mysql_fetch_array($result)){
 											// color matching the badges
 											if ($rws[15] == "LIGHTBLUE") {
 												$badgecolor = "info";

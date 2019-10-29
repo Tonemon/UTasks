@@ -9,6 +9,19 @@ if (!isset($_SESSION['session_tasks_start']))
 	$account_id = $_SESSION['session_tasks_id'];
 	$account_name = $_SESSION['session_tasks_name'];
 
+	// dummy task for isset($_REQUEST['add_user']) and isset($_REQUEST['new_user_approve'])
+		$dummy_title = "Welcome to your first task!";
+		$dummy_content = "This is your first task. We also created a new label for you called: information and tagged it with a blue color.
+We are really happy to see you using UTasks. Thats why we think its important to keep up with future updates.
+Your dashboard is fully customizable and you can change the amount of widgets with the icon in the top right corner.
+With UTasks you get your own tasks and labels and it will always be free! With UTasks Premium you get more options, like
+tags, sharing and more. We are currently depending on our users and every premium subscription will support us. For more
+information goto http://utasks.me/premium. Thanks!
+
+You can go ahead and delete this task and/or the label if you dont need it anymore.";
+		$dummy_label_title = "info";
+		$dummy_label_color = "LIGHTBLUE";
+
 	if (isset($_REQUEST['add_user'])){ // Create user request
 		// variables from user information
 		$new_name = mysql_real_escape_string($_REQUEST['newuser_name']);
@@ -41,20 +54,8 @@ if (!isset($_SESSION['session_tasks_start']))
 
 		$sql4 = "CREATE TABLE UTasksDAT.label".$newuser_id." (label_id int(10) AUTO_INCREMENT, name varchar(20), color varchar(10), PRIMARY KEY (label_id))";
 		mysql_query($sql4) or die("Error while creating table 'label'."); // table label.#id# created
-
-		// inserting a dummy task and label with earlier info
-		$dummy_title = "Welcome to your first task!";
-		$dummy_content = "This is your first task. We also created a new label for you called: information and tagged it with a blue color.
-We are really happy to see you using UTasks. Thats why we think its important to keep up with future updates.
-Your dashboard is fully customizable and you can change the amount of widgets with the icon in the top right corner.
-With UTasks you get your own tasks and labels and it will always be free! With UTasks Premium you get more options, like
-tags, sharing and more. We are currently depending on our users and every premium subscription will support us. For more
-information goto http://utasks.me/premium. Thanks!
-
-You can go ahead and delete this task and/or the label if you dont need it anymore.";
-		$dummy_label_title = "info";
-		$dummy_label_color = "LIGHTBLUE";
 		
+		// dummy task at the top of the page because of duplication		
 		$sql5 = "INSERT INTO UTasksDAT.tasks".$newuser_id." values('1','$new_name','$dummy_title','$dummy_content','$new_date','','1','Cloud','You','0','1','2','ACTIVE')";
 		mysql_query($sql5) or die("Error while creating dummy task.");
 		$sql6 = "INSERT INTO UTasksDAT.label".$newuser_id." values('1','$dummy_label_title','$dummy_label_color')";
@@ -277,8 +278,8 @@ You can go ahead and delete this task and/or the label if you dont need it anymo
 
 		} else { // new password provided
 			if ($alter_pass == $alter_pass2){ // the two passwords match
-				$salt="@3e6jQsK&na*&#3j";
-				$alter_password= sha1($_REQUEST['user_edit_password'].$salt); // salting password
+				$salt = "@3e6jQsK&na*&#3j";
+				$alter_password = sha1($_REQUEST['user_edit_password'].$salt); // salting password
 
 				$updatesql = "UPDATE UTasksMAIN.users SET name='$alter_name', gender='$alter_gender', dob='$alter_dob', account='$alter_type', address='$alter_address', mobile='$alter_mobile', email='$alter_email', password='$alter_password', accstatus='$alter_status', username='$alter_username', waspremium='1' WHERE id='$alterid'";
 				mysql_query($updatesql) or die(mysql_error());
@@ -325,19 +326,7 @@ You can go ahead and delete this task and/or the label if you dont need it anymo
 		$sql4 = "CREATE TABLE UTasksDAT.label".$newuser_id." (label_id int(10) AUTO_INCREMENT, name varchar(20), color varchar(10), PRIMARY KEY (label_id))";
 		mysql_query($sql4) or die("Error while creating table 'label'."); // table label.#id# created
 
-		// inserting a dummy task and label with earlier info
-		$dummy_title = "Welcome to your first task!";
-		$dummy_content = "This is your first task. We also created a new label for you called: information and tagged it with a blue color.
-We are really happy to see you using UTasks. Thats why we think its important to keep up with future updates.
-Your dashboard is fully customizable and you can change the amount of widgets with the icon in the top right corner.
-With UTasks you get your own tasks and labels and it will always be free! With UTasks Premium you get more options, like
-tags, sharing and more. We are currently depending on our users and every premium subscription will support us. For more
-information goto http://utasks.me/premium. Thanks!
-
-You can go ahead and delete this task and/or the label if you dont need it anymore.";
-		$dummy_label_title = "info";
-		$dummy_label_color = "LIGHTBLUE";
-		
+		// dummy task at the top of the page because of duplication
 		$sql5 = "INSERT INTO UTasksDAT.tasks".$newuser_id." values('1','$new_name','$dummy_title','$dummy_content','$new_date','','1','Cloud','You','0','1','2','ACTIVE')";
 		mysql_query($sql5) or die("Error while creating dummy task.");
 		$sql6 = "INSERT INTO UTasksDAT.label".$newuser_id." values('1','$dummy_label_title','$dummy_label_color')";

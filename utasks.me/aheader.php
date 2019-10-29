@@ -28,9 +28,9 @@
 
   } elseif ($rws[10] == "DISABLED"){ // logs users out when they are disabled and still logged in
     $date = date('Y-m-d h:i:s');
-    $exitsql="UPDATE UTasksMAIN.users SET lastlogin='$date' WHERE id='$userdat_id'"; // last login
+    $exitsql = "UPDATE UTasksMAIN.users SET lastlogin='$date' WHERE id='$userdat_id'"; // last login
     mysql_query($exitsql) or die("Could not set your lastlogin time.");
-    $exitsql2="UPDATE UTasksMAIN.users SET status='offline' WHERE id='$userdat_id'"; // set user status to offline
+    $exitsql2 = "UPDATE UTasksMAIN.users SET status='offline' WHERE id='$userdat_id'"; // set user status to offline
     mysql_query($exitsql2) or die("Could not set your status to offline.");
 
     session_destroy();
