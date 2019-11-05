@@ -4,7 +4,6 @@ if(isset($_REQUEST['loginbutton'])){
     $login_user = $_REQUEST['login_username'];
     
     // password salting (for security reasons)
-    $salt = "@3e6jQsK&na*&#3j";
     $login_password = sha1($_REQUEST['login_password'].$salt);
 
     if (preg_match("/@/", $login_user)) { // check for @, if present:

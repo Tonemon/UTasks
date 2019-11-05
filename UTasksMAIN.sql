@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 27, 2019 at 03:56 PM
+-- Generation Time: Nov 05, 2019 at 04:42 PM
 -- Server version: 5.6.37
 -- PHP Version: 5.6.31
 
@@ -73,15 +73,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `section_bookmark` int(1) NOT NULL DEFAULT '0',
   `section_active` int(1) NOT NULL DEFAULT '0',
   `section_archived` int(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `gender`, `dob`, `account`, `address`, `mobile`, `email`, `password`, `lastlogin`, `accstatus`, `username`, `status`, `card_active`, `card_week`, `card_passed`, `card_archived`, `card_total`, `section_bookmark`, `section_active`, `section_archived`) VALUES
-(1, 'Admin User', 'M', '2001-01-01', 'admin', 'street 5', '000113', 'admin@utasks.me', '1c4a5d41b69feb12f1128f8a355f45d92f212062', '2019-09-27 03:55:40', 'ACTIVE', 'admin', 'offline', 1, 0, 0, 1, 1, 0, 1, 0),
-(2, 'Normal User', 'M', '2001-01-01', 'normal', 'street 5', '000113', 'normal@utasks.me', 'df0b5ab474b0dce72f1ff715260887b7d39b5c72', '2019-09-27 03:52:21', 'ACTIVE', 'normal', 'offline', 0, 1, 1, 0, 1, 0, 1, 0);
+(1, 'Admin User', 'M', '2001-01-01', 'admin', 'street 5', '000112', 'admin@utasks.me', '515b11240733ed0a3eed2daecaba9e215b5a241f', '2019-11-05 03:10:55', 'ACTIVE', 'admin', 'online', 1, 0, 0, 1, 1, 1, 0, 0),
+(2, 'Normal User', 'F', '2001-01-01', 'normal', 'street 5', '000113', 'normal@utasks.me', 'a7c319da11a4faf3062d2a72db1434a7ce85e8ed', '2019-11-05 04:21:18', 'ACTIVE', 'normal', 'offline', 1, 1, 1, 0, 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -105,6 +105,8 @@ CREATE TABLE IF NOT EXISTS `usersclosed` (
 --
 
 INSERT INTO `usersclosed` (`id`, `name`, `username`, `acc_type`, `mobile`, `email`, `deleted`, `reason`) VALUES
+(3, 'Test person', 'testing', 'normal', '3483489', 'testing@testing.com', 'closed', 'Testing if this works'),
+(4, 'hoi', 'hoi', 'admin', '42935325', 'lol@lol.com', 'deleted', '## inactive ##'),
 (31, 'Deleted User', 'deleted', 'normal', '4534346356', 'deleted@deleted.com', 'deleted', '## other ##');
 
 -- --------------------------------------------------------

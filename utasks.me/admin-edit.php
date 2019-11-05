@@ -35,7 +35,6 @@ You can go ahead and delete this task and/or the label if you dont need it anymo
 		$new_date = date("Y-m-d H:i:s");
 		
 		//salting of password as encryption
-		$salt = "@3e6jQsK&na*&#3j";
 		$new_password = sha1($_REQUEST['newuser_pwd'].$salt);
 		
 		// insert new user to table 'users'
@@ -278,10 +277,9 @@ You can go ahead and delete this task and/or the label if you dont need it anymo
 
 		} else { // new password provided
 			if ($alter_pass == $alter_pass2){ // the two passwords match
-				$salt = "@3e6jQsK&na*&#3j";
 				$alter_password = sha1($_REQUEST['user_edit_password'].$salt); // salting password
 
-				$updatesql = "UPDATE UTasksMAIN.users SET name='$alter_name', gender='$alter_gender', dob='$alter_dob', account='$alter_type', address='$alter_address', mobile='$alter_mobile', email='$alter_email', password='$alter_password', accstatus='$alter_status', username='$alter_username', waspremium='1' WHERE id='$alterid'";
+				$updatesql = "UPDATE UTasksMAIN.users SET name='$alter_name', gender='$alter_gender', dob='$alter_dob', account='$alter_type', address='$alter_address', mobile='$alter_mobile', email='$alter_email', password='$alter_password', accstatus='$alter_status', username='$alter_username' WHERE id='$alterid'";
 				mysql_query($updatesql) or die(mysql_error());
 				header('location:admin?all&success=2');
 
@@ -307,7 +305,6 @@ You can go ahead and delete this task and/or the label if you dont need it anymo
 		$app_mobile = $apprws[8];
 		
 		// Salting of password for encryption
-		$salt = "@3e6jQsK&na*&#3j";
 		$app_password = sha1($apprws[9].$salt);
 
 		// insert new user to table 'users'

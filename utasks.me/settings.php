@@ -7,8 +7,6 @@ if (!isset($_SESSION['session_tasks_start']))
 <?php
 	include '_inc/dbconn.php';
 	
-	// CODE VOOR HET VERANDEREN VAN JE GEGEVENS MOET NOG KOMEN
-
 	if (isset($_REQUEST['submit_customize'])){
 		// First c in vars is 'change' and second c is 'card' and s is 'section'
 		$change_id = $_POST['c_id'];
@@ -25,6 +23,82 @@ if (!isset($_SESSION['session_tasks_start']))
 		$csql = "UPDATE UTasksMAIN.users SET card_active='$cc_active', card_week='$cc_week', card_passed='$cc_passed', card_archived='$cc_archived', card_total='$cc_total', section_bookmark='$cs_bookmarked', section_active='$cs_active', section_archived='$cs_archived' WHERE id='$change_id'";
 		mysql_query($csql) or die(mysql_error());
 		header('location:home?success=4');
+	} elseif (isset($_REQUEST['change_password'])){ // password change request
+		include '_inc/dbconn.php';
+		$pwd_id = mysql_real_escape_string($_REQUEST['pass_id']);
+		
+		// select current password from users table
+		$query = "SELECT password FROM UTasksMAIN.users WHERE id='$pwd_id'";
+        $result2 = mysql_query($query) or die(mysql_error());
+        $rws2 = mysql_fetch_array($result2);
+					
+		$old = sha1(mysql_real_escape_string($_REQUEST['old_password']).$salt); // old password
+		$new = sha1(mysql_real_escape_string($_REQUEST['new_password']).$salt); // new password
+		$again = sha1(mysql_real_escape_string($_REQUEST['again_password']).$salt); // new password again
+		
+		if ($rws2[0] == $old && $new == $again){ // everything matches
+			$sql9 = "UPDATE UTasksMAIN.users SET password='$new' WHERE id='$pwd_id'";
+			mysql_query($sql9) or die(mysql_error()); // set status to offline
+			$setoffline = "UPDATE UTasksMAIN.users SET status='offline' WHERE id='$pwd_id'";
+			mysql_query($setoffline) or die("Could not set your status to offline.");
+
+			session_destroy(); // destroying session to let the user login again using new password
+			header('location:login?success=2');
+		} elseif ($new != $again){ // two new submitted passwords don't match
+			header('location:settings?action=password&error=2');
+		} else { // the old username/password doesn't match
+			header('location:settings?action=password&error=1');
+		}
+	} elseif (isset($_REQUEST['change_other'])){ // other information change request
+		include '_inc/dbconn.php';
+		$pwd_check = sha1(mysql_real_escape_string($_REQUEST['ed_pwd']).$salt); // old password
+		
+		$edit_id = mysql_real_escape_string($_REQUEST['pass_id']);
+		$edit_dob = $_POST['ed_dob'];
+		$edit_address = $_POST['ed_address'];
+		$edit_mobile = $_POST['ed_mobile'];
+		$edit_gender = $_POST['ed_gender'];
+
+		$query3 = "SELECT password FROM UTasksMAIN.users WHERE id='$edit_id'";
+        $result3 = mysql_query($query3) or die(mysql_error());
+        $rws3 = mysql_fetch_array($result3);
+		
+		if ($rws3[0] == $pwd_check){ // submitted password matches
+			$sql9 = "UPDATE UTasksMAIN.users SET dob='$edit_dob', address='$edit_address', mobile='$edit_mobile', gender='$edit_gender' WHERE id='$edit_id'";
+			mysql_query($sql9) or die(mysql_error());
+			header('location:settings?success=2');
+		} else { // password does not match
+			header('location:account?c_other&error=1');
+		}
+	} elseif (isset($_REQUEST['user_delete'])){
+		include '_inc/dbconn.php';
+		include 'aheader.php'; // for the information needed
+
+		$duserid = mysql_real_escape_string($_REQUEST['del_id']); // user id
+		$duser_name = $userdat_name; // user official names
+		$dusername = $userdat_username; // username
+		$duser_acctype = $userdat_acctype; // account type (normal/premium)
+		$duser_mobile = $userdat_mobile; // phone number
+		$duser_email = $query_email; // email adress
+		$duser_reason = "closed";
+		$reason = mysql_real_escape_string($_REQUEST['deleteReason']); // reason
+
+		// insert into table usersclosed
+        $sql5 = "INSERT into UTasksMAIN.usersclosed values('$duserid','$duser_name','$dusername','$duser_acctype','$duser_mobile','$duser_email','closed','$reason')";
+		mysql_query($sql5) or die("Error adding user to 'userclosed' table.");
+
+		// delete user tables: tasks.#id# & label.#id#
+		$sql_delete2 = "DROP TABLE UTasksDAT.tasks".$duserid;
+        mysql_query($sql_delete2) or die("Error deleting users 'notes' table.");
+		$sql_delete3 = "DROP TABLE UTasksDAT.label".$duserid;
+        mysql_query($sql_delete3) or die("Error deleting users 'notebooks' table.");
+        
+        // delete user from users table
+        $sql_delete1 = "DELETE FROM UTasksMAIN.users WHERE id='$duserid'";
+        mysql_query($sql_delete1) or die("Error deleting user from 'users' table.");
+
+		session_destroy(); // destroying session and display message 'account deleted'
+		header('location:login?notice=1');
 	}
 ?>
 <!DOCTYPE html>
@@ -67,7 +141,7 @@ if (!isset($_SESSION['session_tasks_start']))
 				} elseif ($_GET['error'] == "1") {
 					echo '<div class="col-xl-12 mb-6"><div class="alert alert-warning alert-dismissible">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<i class="fas fa-exclamation-triangle"></i> Old username/password does not match the database. Please try again.</div></div>';
+						<i class="fas fa-exclamation-triangle"></i> Old password does not match the database. Please try again.</div></div>';
 				} elseif ($_GET['error'] == "2") {
 					echo '<div class="col-xl-12 mb-6"><div class="alert alert-warning alert-dismissible">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -138,7 +212,7 @@ if (!isset($_SESSION['session_tasks_start']))
 					</select><br>
 
 					<?php if ($_GET['action'] == "password") { ?>
-					<form action="account" method="POST">
+					<form action="settings" method="POST">
 						<small class="form-text">Please enter your old password and two times your new password.</small>
 						<table>
 							<tr>
@@ -159,7 +233,7 @@ if (!isset($_SESSION['session_tasks_start']))
 					</form>
 
 					<?php } elseif ($_GET['action'] == "other") { ?>
-					<form action="account" method="POST">
+					<form action="settings" method="POST">
 						<small class="form-text">Edit other personal information below. Your name, username and email <b>cannot</b> be changed manually at the moment. Please contact support (using the <i>'Change my personal information'</i> option on the left) to change this.</small><br>
 						<table>
 							<tr>
@@ -192,13 +266,12 @@ if (!isset($_SESSION['session_tasks_start']))
 					</form>
 
 					<?php } elseif ($_GET['action'] == "danger_area") { ?>
-					<form action="account" method="POST">
+					<form action="settings" method="POST">
 						<?php if ($userdat_acctype != "admin" AND $userdat_id != "1"){ // normal or premium users ?>
 						<p>Hi <?php if ($userdat_acctype == "premium"){ echo '<i class="fas fa-gem"></i> <b>Premium user</b>'; } else { echo 'user'; } ?>, we are sad to see you close your UTasks account! Please enter your reason below to inform us why you want to close your account.<br><br>
 							<input type="hidden" name="del_id" value="<?php echo $userdat_id;?>"/>
 							<textarea class="form-control" name="deleteReason" rows="1" placeholder="Reason why I am leaving..." required></textarea><br>
-							<input type="checkbox" id="deleteCheck" required> I am sure I want to delete my UTasks account. <br><?php if ($waspremium == "1") { ?>
-							<input type="checkbox" id="deleteCheck2" required> I know I will still be charged for this month (ONLY when <i class="fas fa-gem"></i> <b>Premium</b> and  a new month started).<br> <?php } ?><br>
+							<input type="checkbox" id="deleteCheck" required> I am sure I want to delete my UTasks account. <br><br>
 						<a href="#" class="btn btn-danger" id="pagesDropdown" data-toggle="modal" data-target="#deleteMyAccountModal" aria-haspopup="true"><i class="fas fa-exclamation-triangle"></i> Delete my account</a>
 						</p>
 						<?php } elseif ($userdat_id == "1") { // if owner asks to delete his account ?>
