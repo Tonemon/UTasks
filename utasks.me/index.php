@@ -84,6 +84,10 @@
 			echo '<div class="col-xl-12 mb-6"><div class="alert alert-warning alert-dismissible">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<i class="fas fa-exclamation-triangle"></i> New passwords do not match. No information was changed.</div></div>';
+		} elseif (isset($_GET['register']) && $_GET['error'] == "3") {
+			echo '<div class="col-xl-12 mb-6"><div class="alert alert-warning alert-dismissible">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<i class="fas fa-exclamation-triangle"></i> Username cannot contain the "@" sign. Please choose another username.</div></div>';
 		}
 	?>
 

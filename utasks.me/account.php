@@ -19,7 +19,7 @@ if (!isset($_SESSION['session_tasks_start']))
 		$qfrom = "User";
 		$qdate = date('Y-m-d h:i:s');
 
-		// insert question to table 'customer'
+		// insert question to table 'questions'
 		$qsql = "INSERT INTO UTasksMAIN.questions values('','$qname','$qemail','$qtype','$qmessage','$qstatus','','$qfrom','$qdate')";
 		mysql_query($qsql) or die(header('location:account?error=1'));
 		header('location:account?success=1');
@@ -75,7 +75,7 @@ if (!isset($_SESSION['session_tasks_start']))
 						<h2> <i class="fas fa-user-circle fa-lg"></i> <b><?php echo $userdat_username; ?></b> <span class='badge badge-success'>Online</span></h2><br>
 						<span>Your Last login was on <b><?php echo $userdat_lastlogin;?></b>.</span><br>
 						<span class="heading">
-							Your full name is <b><?php echo $userdat_name;?></b> and your email address is <b><?php echo $query_email; ?></b>.
+							Your full name is <b><?php echo $userdat_name;?></b> and your email address is <b><?php echo $userdat_email; ?></b>.
 							<!-- REALLY WEIRD: $userdat_email doesn't work but $query_email does work. -->
 							Your account type is <b><?php echo $userdat_acctype;?></b>. 
 						</span><br><br>

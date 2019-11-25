@@ -32,9 +32,13 @@
 
 		// insert request to table 'usersnew'
 		if ($pass1 == $pass2){
-			$insertsql = "INSERT INTO UTasksMAIN.usersnew values('','$fullname','$username','$email','$gender','$dob','$type','$address','$mobile','$pass1')";
-			mysql_query($insertsql) or die(header('location:http://utasks.me/?register&error=1'));
-			header('location:http://utasks.me/?register&success=1');
+			if (preg_match("/@/", $username)) { // username cannot contain '@'
+				header('location:http://utasks.me/?register&error=3');
+			} else {
+				$insertsql = "INSERT INTO UTasksMAIN.usersnew values('','$fullname','$username','$email','$gender','$dob','$type','$address','$mobile','$pass1')";
+				mysql_query($insertsql) or die(header('location:http://utasks.me/?register&error=1'));
+				header('location:http://utasks.me/?register&success=1');
+			}
 		} else { // passwords do not match
 			header('location:http://utasks.me/?register&error=2');
 		}

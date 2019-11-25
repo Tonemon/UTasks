@@ -54,13 +54,13 @@
       </div>
       <div class="row">
         <div class="col-xl-8 form-group">
-          <small id="taskHelp" class="form-text">Due Date (date + time)</small>
+          <small id="taskHelp" class="form-text">Due Date (date + time + AM/PM!)</small>
           <div class="row">
-            <div class="col-sm-8">
-              <input type="date" class="form-control" name="task_duedate1">
+            <div class="col-sm-7">
+              <input type="date" class="form-control" name="task_duedate">
             </div>
-            <div class="col-sm-4">
-              <input type="time" class="form-control" name="task_duedate2">
+            <div class="col-sm-5">
+              <input type="time" class="form-control" name="task_duetime">
             </div>
           </div>
         </div>

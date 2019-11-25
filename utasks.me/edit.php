@@ -13,9 +13,9 @@ if (!isset($_SESSION['session_tasks_start']))
 		// variables from create task boxes
 		$ins_title =  $_POST['task_title'];
 		$ins_label =  $_POST['task_label'];
-		$duedate1 = $_POST['task_duedate1'];
-		$duedate2 = $_POST['task_duedate2'];
-		$ins_duedate = $duedate1 . " " . $duedate2; // this doesn't work well because of afooter formatting.
+		$duedate = $_POST['task_duedate'];
+		$duetime = $_POST['task_duetime'];
+		$ins_duedate = date('Y-m-d H:i:s', strtotime("$duedate $duetime"));
 		$ins_priority = $_POST['task_priority'];
 		$ins_content =  $_POST['task_description'];
 		$ins_date = date("Y-m-d H:i:s");
@@ -199,7 +199,7 @@ if (!isset($_SESSION['session_tasks_start']))
 		$alt_people = mysql_real_escape_string($_REQUEST['task_alter_people']);
 		$alt_duedate = mysql_real_escape_string($_REQUEST['task_alter_duedate']);
 		$alt_content = mysql_real_escape_string($_REQUEST['task_alter_content']);
-		$alt_bookmark = mysql_real_escape_string($_REQUEST['task_alter_bookmark']); //DOESN"T WORK
+		$alt_bookmark = mysql_real_escape_string($_REQUEST['task_alter_bookmark']);
 		$currentdate = date("Y-m-d H:i:s");
 
 		// setting archive variable
@@ -209,7 +209,7 @@ if (!isset($_SESSION['session_tasks_start']))
 			$alt_archive = "ACTIVE";
 		}
 		
-		$alter_sql = "UPDATE UTasksDAT.tasks".$account_id." SET title='$alt_title', description='$alt_content', dateon='$currentdate', lastdate='alt_duedate', label='$alt_label', location='$alt_location', people='$alt_people', favorite='$alt_bookmark', priority='$alt_priority', status='$alt_archive' WHERE id='$altertaskid'";
+		$alter_sql = "UPDATE UTasksDAT.tasks".$account_id." SET title='$alt_title', description='$alt_content', dateon='$currentdate', lastdate='$alt_duedate', label='$alt_label', location='$alt_location', people='$alt_people', favorite='$alt_bookmark', priority='$alt_priority', status='$alt_archive' WHERE id='$altertaskid'";
 		mysql_query($alter_sql) or die(mysql_error());
 		header('location:home?success=3');
 		

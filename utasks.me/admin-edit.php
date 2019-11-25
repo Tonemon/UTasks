@@ -10,8 +10,8 @@ if (!isset($_SESSION['session_tasks_start']))
 	$account_name = $_SESSION['session_tasks_name'];
 
 	// dummy task for isset($_REQUEST['add_user']) and isset($_REQUEST['new_user_approve'])
-		$dummy_title = "Welcome to your first task!";
-		$dummy_content = "This is your first task. We also created a new label for you called: information and tagged it with a blue color.
+	$dummy_title = "Welcome to your first task!";
+	$dummy_content = "This is your first task. We also created a new label for you called: information and tagged it with a blue color.
 We are really happy to see you using UTasks. Thats why we think its important to keep up with future updates.
 Your dashboard is fully customizable and you can change the amount of widgets with the icon in the top right corner.
 With UTasks you get your own tasks and labels and it will always be free! With UTasks Premium you get more options, like
@@ -291,7 +291,7 @@ You can go ahead and delete this task and/or the label if you dont need it anymo
 	} elseif (isset($_REQUEST['new_user_approve'])){ // Approve new user request
 		$approve_id = $_POST['approve_id'];
 
-		$app_sql = "SELECT * FROM UTasksMAIN.newusers WHERE id=$approve_id";
+		$app_sql = "SELECT * FROM UTasksMAIN.usersnew WHERE id=$approve_id";
 		$app_result = mysql_query($app_sql) or die(mysql_error());
 		$apprws = mysql_fetch_array($app_result);
 
@@ -300,7 +300,7 @@ You can go ahead and delete this task and/or the label if you dont need it anymo
 		$app_email = $apprws[3];
 		$app_gender = $apprws[4];
 		$app_dob = $apprws[5];
-		$app_type = $apprws[6];
+		$app_account = $apprws[6];
 		$app_address = $apprws[7];
 		$app_mobile = $apprws[8];
 		
@@ -330,14 +330,14 @@ You can go ahead and delete this task and/or the label if you dont need it anymo
 		mysql_query($sql6) or die("Error while creating dummy label.");
 		header('location:admin?all&success=1');
 
-		$app_sql10 = "DELETE FROM UTasksMAIN.newusers WHERE `id` = '$approve_id'";
+		$app_sql10 = "DELETE FROM UTasksMAIN.usersnew WHERE `id` = '$approve_id'";
 		mysql_query($app_sql10) or die(mysql_error());
 		header('location:admin?all&success=5');
 
 	} elseif (isset($_REQUEST['new_user_delete'])){ // Delete new user request
 		$approve_id = $_POST['approve_id'];
 
-		$sql_del2 = "DELETE FROM UTasksMAIN.newusers WHERE `id` = '$approve_id'";
+		$sql_del2 = "DELETE FROM UTasksMAIN.usersnew WHERE `id` = '$approve_id'";
 		mysql_query($sql_del2) or die(mysql_error());
 		header('location:admin?new&success=4');
 

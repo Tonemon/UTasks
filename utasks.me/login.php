@@ -8,13 +8,13 @@ if(isset($_REQUEST['loginbutton'])){
 
     if (preg_match("/@/", $login_user)) { // check for @, if present:
         // getting usefull information for session creation (with email)
-        $sqlquery = "SELECT username,email,password,accstatus,status,id,account FROM UTasksMAIN.users WHERE email='$login_user' AND password='$login_password'";
+        $sqlquery = "SELECT username,email,password,accstatus,status,id,account,name FROM UTasksMAIN.users WHERE email='$login_user' AND password='$login_password'";
         $result = mysql_query($sqlquery) or die(mysql_error());
         $arr =  mysql_fetch_array($result);
 
     } else { // no @ present, so user is trying to login with username:
         // getting usefull information for session creation (with username)
-        $sqlquery = "SELECT username,email,password,accstatus,status,id,account FROM UTasksMAIN.users WHERE username='$login_user' AND password='$login_password'";
+        $sqlquery = "SELECT username,email,password,accstatus,status,id,account,name FROM UTasksMAIN.users WHERE username='$login_user' AND password='$login_password'";
         $result = mysql_query($sqlquery) or die(mysql_error());
         $arr =  mysql_fetch_array($result);
     }
@@ -26,6 +26,7 @@ if(isset($_REQUEST['loginbutton'])){
 	  $status = $arr[4];
     $db_id = $arr[5];
     $db_acctype = $arr[6];
+    $db_name = $arr[7];
 
     if ($db_username == "") { // means that user cannot be found in users table/might be deleted
       // This query checks if user is permanently deleted (from 'usersclosed' table)

@@ -234,7 +234,7 @@ if (!isset($_SESSION['session_tasks_start']))
 									?></small><br>
 									<?php
 									  	echo '<div class="list-group">';
-										while($rws = mysql_fetch_array($result)){
+										while ($rws = mysql_fetch_array($result)){
 											// color matching the badges
 											if ($rws[15] == "LIGHTBLUE") {
 												$badgecolor = "info";
@@ -267,7 +267,8 @@ if (!isset($_SESSION['session_tasks_start']))
 											}
 
 											// making date readable
-											$Date = date("l, d F Y, H:i", strtotime($rws[5]));
+											$createdate = date_create($rws[5]);
+											$Date = date_format($createdate,"l, d F Y, H:i");
 											// Item output
   											echo '<a href="edit?task='.$rws[0].'" class="list-group-item list-group-item-action flex-column align-items-start">';
 											echo '<div class="d-flex w-100 justify-content-between">';
@@ -320,7 +321,7 @@ if (!isset($_SESSION['session_tasks_start']))
 
 									  <?php
 									  	echo '<div class="list-group">';
-										while($rws = mysql_fetch_array($result)){
+										while ($rws = mysql_fetch_array($result)){
 											// color matching the badges
 											if ($rws[15] == "LIGHTBLUE") {
 												$badgecolor = "info";
@@ -353,7 +354,8 @@ if (!isset($_SESSION['session_tasks_start']))
 											}
 
 											// making date readable
-											$Date = date("l, d F Y, H:i", strtotime($rws[5]));
+											$createdate = date_create($rws[5]);
+											$Date = date_format($createdate,"l, d F Y, H:i");
 											// Item output
   											echo '<a href="edit?task='.$rws[0].'" class="list-group-item list-group-item-action flex-column align-items-start">';
 											echo '<div class="d-flex w-100 justify-content-between">';
@@ -414,7 +416,7 @@ if (!isset($_SESSION['session_tasks_start']))
 									?></small><br>
 									  <?php
 									  	echo '<div class="list-group">';
-										while($rws=  mysql_fetch_array($result)){
+										while ($rws = mysql_fetch_array($result)){
 											// color matching the badges
 											if ($rws[15] == "LIGHTBLUE") {
 												$badgecolor = "info";
@@ -447,7 +449,8 @@ if (!isset($_SESSION['session_tasks_start']))
 											}
 
 											// making date readable
-											$Date = date("l, d F Y, H:i", strtotime($rws[5]));
+											$createdate = date_create($rws[5]);
+											$Date = date_format($createdate,"l, d F Y, H:i");
 											// Item output
   											echo '<a href="edit?task='.$rws[0].'" class="list-group-item list-group-item-action flex-column align-items-start">';
 											echo '<div class="d-flex w-100 justify-content-between">';

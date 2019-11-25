@@ -18,7 +18,7 @@
   $userdat_acctype = $rws[4];
   $userdat_gender = $rws[2];
   $userdat_mobile = $rws[6];
-  $userdat_email = $rws[7];
+  $userdat_email = $_SESSION['session_tasks_email'];
   $userdat_dob = $rws[3];
         
   // checking for corrupted sessions
