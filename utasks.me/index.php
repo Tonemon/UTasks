@@ -357,6 +357,12 @@
         </div>
     </div>
 
+    <a href="premium" title="Apply for Premium!">
+      <div style="position: fixed;left: 0;bottom: 60px;background-color: #007bff;box-shadow: 0 4px 8px rgba(0,0,0,.05);border-radius: 0 10px 10px 0;font-size: 12px;padding: 10px 10px;">
+        <i class="fas fa-fw fa-2x fa-gem text-white"></i>
+      </div>
+    </a>
+
 	<!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#homeheader">
       <i class="fas fa-angle-up"></i>

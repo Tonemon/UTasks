@@ -133,6 +133,15 @@
       </div>
     </div>
 
+    <!-- Premium ad for normal users -->
+    <?php if ($userdat_acctype == "normal"){ ?>
+      <a href="#" id="pagesDropdown" role="button" data-toggle="modal" data-target="#premiumModal">
+        <div style="position: fixed;left: 0;bottom: 60px;background-color: #007bff;box-shadow: 0 4px 8px rgba(0,0,0,.05);border-radius: 0 10px 10px 0;font-size: 12px;padding: 10px 10px;">
+          <i class="fas fa-fw fa-2x fa-gem text-white"></i>
+        </div>
+      </a>
+    <?php } ?> 
+
     <!-- Credits footer on every page -->
     <div style="position: fixed;bottom: 0;right: 15px;background-color: #f2f2f2;box-shadow: 0 4px 8px rgba(0,0,0,.05);border-radius: 3px 3px 0 0;font-size: 12px;padding: 5px 10px;">Created by Tony.</div>
 

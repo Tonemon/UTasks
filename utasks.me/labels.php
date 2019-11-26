@@ -22,7 +22,7 @@ if (!isset($_SESSION['session_tasks_start']))
 		$result_count=  mysql_query($count_label) or die(mysql_error());
 		$label_count = mysql_fetch_array($result_count);
 
-		if ($userdat_acctype == "normal" AND $label_count[0] >= "5"){ // normal users can only have 5 labels
+		if ($userdat_acctype == "normal" AND $label_count[0] >= "3"){ // normal users can only have 3 labels
 			header('location:labels?error=2');
 		} else {
 			// Insert new label to table 'label' with user
@@ -98,7 +98,7 @@ if (!isset($_SESSION['session_tasks_start']))
 				} elseif ($_GET['error'] == "2") {
 					echo "<div class='alert alert-warning alert-dismissible'>
 						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-						<i class='fas fa-check'></i> You have reached your limit of 5 labels. Join <a href='#'' id='pagesDropdown' role='button' data-toggle='modal' data-target='#premiumModal' aria-haspopup='true' aria-expanded='false'><i class='far fa-gem'></i> <span>UTasks Premium</span></a> for unlimited labels!
+						<i class='fas fa-check'></i> You have reached your limit of 3 labels. Join <a href='#'' id='pagesDropdown' role='button' data-toggle='modal' data-target='#premiumModal' aria-haspopup='true' aria-expanded='false'><i class='far fa-gem'></i> <span>UTasks Premium</span></a> for unlimited labels!
 						</div>";
 				} elseif ($_GET['error'] == "3") {
 					echo "<div class='alert alert-warning alert-dismissible'>
