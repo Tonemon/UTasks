@@ -24,7 +24,7 @@ if (!isset($_SESSION['session_tasks_start']))
     <!-- Page level plugin CSS-->
     <link href="vendor/js/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 	
-	<title>All your Tasks Online | UTasks User Panel </title>
+	<title>Admin Dashboard | UTasks Admin Panel </title>
   </head>
   <body id="page-top">
     <?php include 'aheader.php' ?>

@@ -180,7 +180,8 @@
 									<option value="">...</option>
 									<option value="Services">Forgot Password</option>
 									<option value="UTasks">About UTasks/UTasks Group</option>
-									<option value="Job">Job Application</option>
+									<option value="Disabled">Account temporarily Disabled</option>
+									<option value="Removed">Account maybe Removed</option>
 									<option value="Bug">Exploit/Bug Found</option>
 									<option value="Other">Other</option>
 								</select>

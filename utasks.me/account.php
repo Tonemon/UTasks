@@ -75,13 +75,13 @@ if (!isset($_SESSION['session_tasks_start']))
 						<h2> <i class="fas fa-user-circle fa-lg"></i> <b><?php echo $userdat_username; ?></b> <span class='badge badge-success'>Online</span></h2><br>
 						<span>Your Last login was on <b><?php echo $userdat_lastlogin;?></b>.</span><br>
 						<span class="heading">
-							Your full name is <b><?php echo $userdat_name;?></b> and your email address is <b><?php echo $userdat_email; ?></b>.
+							Your full name is <b><?php echo $userdat_name;?></b> and your email address is <b><?php echo $query_email; ?></b>.
 							<!-- REALLY WEIRD: $userdat_email doesn't work but $query_email does work. -->
 							Your account type is <b><?php echo $userdat_acctype;?></b>. 
 						</span><br><br>
 						<span class="heading">
 							Your address is <b><?php echo $userdat_address;?></b> and your phone number is <b><?php echo $userdat_mobile;?></b>. 
-							Your date of birth is <b><?php echo $userdat_dob;?></b> and your gender is <b><?php if ($userdat_gender == "M"){ echo "male"; } else { echo "female"; } ?></b>. <i>Want to change this information? Go to the <a href="settings">settings page</a>.</i></span>
+							Your date of birth is <b><?php echo $userdat_dob;?></b> and your gender is <b><?php if ($userdat_gender == "M"){ echo "male"; } else { echo "female"; } ?></b>. <i>Want to change this information? Go to the <a href="settings?action=other">settings page</a>.</i></span>
 						
 						<?php if ($userdat_acctype == "premium"){ ?>
 								<br><br><i class="fas fa-check-circle"></i> <i>Thank you for being a <i class="far fa-gem"></i> <b>premium member</b>!</i>

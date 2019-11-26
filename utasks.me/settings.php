@@ -43,7 +43,7 @@ if (!isset($_SESSION['session_tasks_start']))
 			mysql_query($setoffline) or die("Could not set your status to offline.");
 
 			session_destroy(); // destroying session to let the user login again using new password
-			header('location:login?success=2');
+			header('location:login?error=2');
 		} elseif ($new != $again){ // two new submitted passwords don't match
 			header('location:settings?action=password&error=2');
 		} else { // the old username/password doesn't match

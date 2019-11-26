@@ -1,74 +1,72 @@
 <?php 
-if(isset($_REQUEST['loginbutton'])){
-    include '_inc/dbconn.php';
-    $login_user = $_REQUEST['login_username'];
+if (isset($_REQUEST['loginbutton'])){
+  include '_inc/dbconn.php';
+  $login_user = $_REQUEST['login_username'];
     
-    // password salting (for security reasons)
-    $login_password = sha1($_REQUEST['login_password'].$salt);
+  // password salting (for security reasons)
+  $login_password = sha1($_REQUEST['login_password'].$salt);
 
-    if (preg_match("/@/", $login_user)) { // check for @, if present:
-        // getting usefull information for session creation (with email)
-        $sqlquery = "SELECT username,email,password,accstatus,status,id,account,name FROM UTasksMAIN.users WHERE email='$login_user' AND password='$login_password'";
-        $result = mysql_query($sqlquery) or die(mysql_error());
-        $arr =  mysql_fetch_array($result);
+  if (preg_match("/@/", $login_user)) { // check for @, if present:
+    // getting usefull information for session creation (with email)
+    $sqlquery = "SELECT username,email,password,accstatus,status,id,account,name FROM UTasksMAIN.users WHERE email='$login_user' AND password='$login_password'";
+    $result = mysql_query($sqlquery) or die(mysql_error());
+    $arr =  mysql_fetch_array($result);
 
-    } else { // no @ present, so user is trying to login with username:
-        // getting usefull information for session creation (with username)
-        $sqlquery = "SELECT username,email,password,accstatus,status,id,account,name FROM UTasksMAIN.users WHERE username='$login_user' AND password='$login_password'";
-        $result = mysql_query($sqlquery) or die(mysql_error());
-        $arr =  mysql_fetch_array($result);
-    }
+  } else { // no @ present, so user is trying to login with username:
+    // getting usefull information for session creation (with username)
+    $sqlquery = "SELECT username,email,password,accstatus,status,id,account,name FROM UTasksMAIN.users WHERE username='$login_user' AND password='$login_password'";
+    $result = mysql_query($sqlquery) or die(mysql_error());
+    $arr =  mysql_fetch_array($result);
+  }
     
-    $db_username = $arr[0];
-	  $db_email = $arr[1];
-    $db_pass = $arr[2];
-	  $db_accstatus = $arr[3];
-	  $status = $arr[4];
-    $db_id = $arr[5];
-    $db_acctype = $arr[6];
-    $db_name = $arr[7];
+  $db_username = $arr[0];
+  $db_email = $arr[1];
+  $db_pass = $arr[2];
+	$db_accstatus = $arr[3];
+	$status = $arr[4];
+  $db_id = $arr[5];
+  $db_acctype = $arr[6];
+  $db_name = $arr[7];
 
-    if ($db_username == "") { // means that user cannot be found in users table/might be deleted
-      // This query checks if user is permanently deleted (from 'usersclosed' table)
-      $del_sql = "SELECT username FROM UTasksMAIN.usersclosed WHERE username='$login_user'";
-      $del_result = mysql_query($del_sql) or die(mysql_error());
-      $del_rws = mysql_fetch_array($del_result);
-
-      if (isset($del_rws[0])){
-        header('location:login?notice=1');
-      }
-
-    } elseif (($login_user == $db_username || $login_user == $db_email) && $login_password == $db_pass){ // check if submitted information is correct
-      if ($db_accstatus == "ACTIVE"){ // check if account status is active or not
-        session_start();
-        $_SESSION['session_tasks_start'] = 1;
-        $_SESSION['session_tasks_username'] = $db_user;
-        $_SESSION['session_tasks_email'] = $db_email;
-        $_SESSION['session_tasks_id'] = $db_id;
-        $_SESSION['session_tasks_name'] = $db_name;
+  if (($login_user == $db_username || $login_user == $db_email) && $login_password == $db_pass){ // check if submitted information is correct
+    if ($db_accstatus == "ACTIVE"){ // check if account status is active or not
+      session_start();
+      $_SESSION['session_tasks_start'] = 1;
+      $_SESSION['session_tasks_username'] = $db_user;
+      $_SESSION['session_tasks_email'] = $db_email;
+      $_SESSION['session_tasks_id'] = $db_id;
+      $_SESSION['session_tasks_name'] = $db_name;
         
-        // setting user status to online
-        $setonline = "UPDATE UTasksMAIN.users SET status='online' WHERE email='$db_email'";
-        mysql_query($setonline) or die(mysql_error());
+      // setting user status to online
+      $setonline = "UPDATE UTasksMAIN.users SET status='online' WHERE email='$db_email'";
+      mysql_query($setonline) or die(mysql_error());
 
-        if ($db_acctype == "admin"){ // redirect different user accounts to different dashboards
-          header('location:administration');
-        } else {
-          header('location:home');
-        } 
-
-      } else { // account status is set to disabled
-        header('location:login?error=3');
+      if ($db_acctype == "admin"){ // redirect different user accounts to different dashboards
+        header('location:administration');
+      } else {
+        header('location:home');
       }
-    } else { // user login information is incorrect
-      header('location:login?error=1'); 
+    } else { // account status is set to disabled
+      header('location:login?error=3');
     }
-} else { ?>
 
-<?php 
-session_start(); // check if session active to redirect user from login page
+  } elseif ($db_id == NULL) { // user login information is incorrect
+    // This query checks if user is permanently deleted (from 'usersclosed' table)
+    $del_sql = "SELECT username FROM UTasksMAIN.usersclosed WHERE username='$login_user'";
+    $del_result = mysql_query($del_sql) or die(mysql_error());
+    $del_rws = mysql_fetch_array($del_result);
+
+    if (isset($del_rws[0])){
+      header('location:login?notice=1');
+    } else {
+      header('location:login?error=1');
+    }     
+  }
+} else { // when no login button pressed, logged in and on login page --> redirect to home
+  session_start(); // check if session active to redirect user from login page
   if (isset($_SESSION['session_tasks_start'])) 
-    header('location:home');     
+    header('location:home');
+}    
 ?>
 
 <!DOCTYPE html>
@@ -107,13 +105,7 @@ session_start(); // check if session active to redirect user from login page
     				if ($_GET['success'] == "1") { // logged out
     					echo "<div class='alert alert-success'>
     						<i class='fas fa-check'></i> Successfully logged out.</div>";
-    				} elseif ($_GET['success'] == "2") { // password changed
-              echo "<div class='alert alert-success'>
-                <i class='fas fa-check'></i> Password changed. Login to continue.</div>";
-            } elseif ($_GET['success'] == "3") { // username changed
-              echo "<div class='alert alert-success'>
-                <i class='fas fa-check'></i> Username changed. Login to continue.</div>";
-            } elseif ($_GET['error'] == "1") { // wrong credentials
+    				} elseif ($_GET['error'] == "1") { // wrong credentials
     					echo "<div class='alert alert-danger'>
     						<i class='fas fa-exclamation-triangle'></i> Wrong credentials. Please try again.</div>";
     				} elseif ($_GET['error'] == "2") { // session expired
@@ -123,7 +115,7 @@ session_start(); // check if session active to redirect user from login page
             } elseif ($_GET['error'] == "3") { // account disabled
     					echo "<div class='alert alert-danger'>
     						<i class='fas fa-exclamation-triangle'></i>
-    						Account temporarily disabled. <br>Please <a href='http://utasks.me/contact'>contact us</a> for more information.</div>";
+    						Account temporarily disabled. <br>Please <a href='http://utasks.me/#contact'>contact us</a> for more information.</div>";
     				} elseif ($_GET['notice'] == "1") { // account might be deleted or weird error
     					echo "<div class='alert alert-warning'>
     						<i class='fas fa-exclamation-triangle'></i>
@@ -197,5 +189,3 @@ session_start(); // check if session active to redirect user from login page
 	<script src="vendor/js/bootstrap.min.js"></script>
   </body>
 </html>
-
-<?php } ?>
