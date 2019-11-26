@@ -68,17 +68,18 @@
         </li>
         <?php } elseif ($userdat_acctype == "admin"){ ?>
           <li class="nav-item">
-            <a class="nav-link" href="home">
-              <i class="fas fa-tachometer-alt fa-lg"></i></i><span>Dashboard</span>
+            <a class="nav-link" href="administration">
+              <i class="fas fa-tachometer-alt fa-lg"></i></i><span>Administration</span>
             </a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-sticky-note fa-lg"></i> <span>Task Actions</span>
+              <i class="fas fa-sticky-note fa-lg"></i> <span>Your UTasks</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-              <h6 class="dropdown-header">More Task Actions</h6>
+              <h6 class="dropdown-header">Your UTasks Environment</h6>
               <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="home"><i class="fas fa-fw fa-tachometer-alt"></i> Dashboard</a>
               <a class="dropdown-item" href="tasks?show=all"><i class="fas fa-fw fa-sticky-note"></i> All Tasks</a>
               <a class="dropdown-item" href="labels"><i class="fas fa-fw fa-folder-open"></i> Labels
               </a>

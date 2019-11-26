@@ -51,8 +51,8 @@ if(isset($_REQUEST['loginbutton'])){
         $setonline = "UPDATE UTasksMAIN.users SET status='online' WHERE email='$db_email'";
         mysql_query($setonline) or die(mysql_error());
 
-        if ($arr[6] == "admin"){ // redirect different user accounts to different dashboards
-          header('location:admin?dashboard');
+        if ($db_acctype == "admin"){ // redirect different user accounts to different dashboards
+          header('location:administration');
         } else {
           header('location:home');
         } 
@@ -63,7 +63,7 @@ if(isset($_REQUEST['loginbutton'])){
     } else { // user login information is incorrect
       header('location:login?error=1'); 
     }
-} ?>
+} else { ?>
 
 <?php 
 session_start(); // check if session active to redirect user from login page
@@ -197,3 +197,5 @@ session_start(); // check if session active to redirect user from login page
 	<script src="vendor/js/bootstrap.min.js"></script>
   </body>
 </html>
+
+<?php } ?>
