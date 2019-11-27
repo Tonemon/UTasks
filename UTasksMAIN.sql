@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 05, 2019 at 04:42 PM
+-- Generation Time: Nov 27, 2019 at 02:17 PM
 -- Server version: 5.6.37
 -- PHP Version: 5.6.31
 
@@ -19,6 +19,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `UTasksMAIN`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `premiumreq`
+--
+
+CREATE TABLE IF NOT EXISTS `premiumreq` (
+  `id` int(10) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `method` varchar(10) NOT NULL,
+  `number` varchar(20) NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `approvedby` varchar(32) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `premiumreq`
+--
+
+INSERT INTO `premiumreq` (`id`, `name`, `username`, `email`, `method`, `number`, `message`, `status`, `approvedby`) VALUES
+(1, 'Normal User', 'normal', 'normal@utasks.me', 'iDeal', 'NL99ABNA9999999999', '', 'PENDING', '');
 
 -- --------------------------------------------------------
 
@@ -80,8 +105,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `gender`, `dob`, `account`, `address`, `mobile`, `email`, `password`, `lastlogin`, `accstatus`, `username`, `status`, `card_active`, `card_week`, `card_passed`, `card_archived`, `card_total`, `section_bookmark`, `section_active`, `section_archived`) VALUES
-(1, 'Admin User', 'M', '2001-01-01', 'admin', 'street 5', '000112', 'admin@utasks.me', '515b11240733ed0a3eed2daecaba9e215b5a241f', '2019-11-05 03:10:55', 'ACTIVE', 'admin', 'online', 1, 0, 0, 1, 1, 1, 0, 0),
-(2, 'Normal User', 'F', '2001-01-01', 'normal', 'street 5', '000113', 'normal@utasks.me', 'a7c319da11a4faf3062d2a72db1434a7ce85e8ed', '2019-11-05 04:21:18', 'ACTIVE', 'normal', 'offline', 1, 1, 1, 0, 1, 0, 1, 0);
+(1, 'Admin User', 'M', '2001-01-01', 'admin', 'street 5', '000112', 'admin@utasks.me', '515b11240733ed0a3eed2daecaba9e215b5a241f', '2019-11-27 02:14:04', 'ACTIVE', 'admin', 'offline', 1, 0, 0, 1, 1, 1, 0, 0),
+(2, 'Normal User', 'F', '2001-01-01', 'normal', 'street 5', '000113', 'normal@utasks.me', 'a7c319da11a4faf3062d2a72db1434a7ce85e8ed', '2019-11-27 02:17:02', 'ACTIVE', 'normal', 'offline', 1, 1, 1, 0, 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -105,8 +130,6 @@ CREATE TABLE IF NOT EXISTS `usersclosed` (
 --
 
 INSERT INTO `usersclosed` (`id`, `name`, `username`, `acc_type`, `mobile`, `email`, `deleted`, `reason`) VALUES
-(3, 'Test person', 'testing', 'normal', '3483489', 'testing@testing.com', 'closed', 'Testing if this works'),
-(4, 'hoi', 'hoi', 'admin', '42935325', 'lol@lol.com', 'deleted', '## inactive ##'),
 (31, 'Deleted User', 'deleted', 'normal', '4534346356', 'deleted@deleted.com', 'deleted', '## other ##');
 
 -- --------------------------------------------------------
@@ -140,6 +163,12 @@ INSERT INTO `usersnew` (`id`, `name`, `username`, `email`, `gender`, `dob`, `acc
 --
 
 --
+-- Indexes for table `premiumreq`
+--
+ALTER TABLE `premiumreq`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `questions`
 --
 ALTER TABLE `questions`
@@ -169,6 +198,11 @@ ALTER TABLE `usersnew`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `premiumreq`
+--
+ALTER TABLE `premiumreq`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `questions`
 --

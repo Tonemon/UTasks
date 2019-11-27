@@ -68,6 +68,14 @@ if (!isset($_SESSION['session_tasks_start']))
 					echo '<div class="col-xl-12 mb-6"><div class="alert alert-warning alert-dismissible">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						<i class="fas fa-exclamation-triangle"></i> New passwords do not match. No information was changed.</div></div>';
+				} elseif ($_GET['error'] == "4") {
+					echo '<div class="col-xl-12 mb-6"><div class="alert alert-warning alert-dismissible">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<i class="fas fa-exclamation-triangle"></i> This user is already a premium member. You should discard this request.</div></div>';
+				} elseif ($_GET['error'] == "5") {
+					echo '<div class="col-xl-12 mb-6"><div class="alert alert-warning alert-dismissible">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<i class="fas fa-exclamation-triangle"></i> The user credentials do not match the database. This user should try again with the right credentials.</div></div>';
 				} 
 			?>
 		  
@@ -82,6 +90,7 @@ if (!isset($_SESSION['session_tasks_start']))
 					<?php } else { ?>
 						<option value="?new">Accept/Reject Account Requests</option>
 					<?php } ?>
+					<option value="?premium">Accept/Reject Premium Requests</option>
 					<option value="?all">Existing Users</option>
 					<option value="?removed">Deleted Users</option>
 				</select>
@@ -198,11 +207,11 @@ if (!isset($_SESSION['session_tasks_start']))
                         echo " /></td>";
                         
                         echo "<td><b>".$rws5[1]."</b> (".$rws5[3].")</td>";
-								echo "<td>".$rws5[2]."</td>";
-								echo "<td>".$rws5[6]."</td>";
-								echo "<td>".$rws5[7]."</td>";
-								echo "<td>".$rws5[8]."</td>";
-								echo "<td>".$rws5[5]."</td>";
+						echo "<td>".$rws5[2]."</td>";
+						echo "<td>".$rws5[6]."</td>";
+						echo "<td>".$rws5[7]."</td>";
+						echo "<td>".$rws5[8]."</td>";
+						echo "<td>".$rws5[5]."</td>";
                         echo "<td>".$rws5[4]."</td>";
                         echo "</tr>";
                      }
@@ -212,6 +221,63 @@ if (!isset($_SESSION['session_tasks_start']))
 					</div><br>
 					<button type="submit" class="btn btn-success" name="new_user_approve"><i class="fas fa-check"></i> Approve User Request</button>
 					<button type="submit" class="btn btn-danger" name="new_user_delete"><i class="fas fa-trash-alt"></i> Delete User Request</button>
+				  </form>
+				</div>
+			  </div>
+		  </div> <!-- /.row -->
+
+		<?php } elseif (isset($_GET['premium'])) { ?>
+		<!-- Approve Premium account requests -->
+		  <div class="row">
+			<div class="col-xl-12 mb-6">
+			  <div class="card o-hidden mb-3" id="transfer">
+				<div class="card-header">
+				  <i class="far fa-gem"></i>
+				  Approve Premium Requests</div>
+				<div class="card-body">
+					<form action="admin-edit" method="POST">
+					<div class="table-responsive">
+					<small id="emailHelp" class="form-text">The account requests below are coming from the <a href="http://utasks.me/premium#apply" target="_blank">utasks.me/premium</a> page.</small><br>
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<?php
+							include '_inc/dbconn.php';
+							$sql5 = "SELECT * FROM UTasksMAIN.premiumreq";
+							$result5 = mysql_query($sql5) or die(mysql_error());
+
+							$sql_min5 = "SELECT MIN(id) from UTasksMAIN.premiumreq";
+							$result_min5 = mysql_query($sql_min5);
+							$rws_min5 = mysql_fetch_array($result_min5);
+						?>
+						<thead>
+						<tr>
+							<th></th>
+							<th>Name (email)</th>
+							<th>Username</th>
+							<th>Method</th>
+							<th>Status</th>
+							<th>Message</th>
+						</tr>
+						</thead>
+						<tbody>
+						<?php
+                     while($rws5 = mysql_fetch_array($result5)){
+                        echo "<tr><td><input type='radio' name='premium_id' value=".$rws5[0];
+                        if($rws5[0] == $rws_min5[0]) echo' checked';
+                        echo " /></td>";
+                        
+                        echo "<td><b>".$rws5[1]."</b> (".$rws5[3].")</td>";
+						echo "<td>".$rws5[2]."</td>";
+						echo "<td>".$rws5[4]."</td>";
+						echo "<td>".$rws5[7]."</td>";
+						echo "<td>".$rws5[6]."</td>";
+                        echo "</tr>";
+                     }
+                  ?>
+					  </tbody>
+					</table>
+					</div><br>
+					<button type="submit" class="btn btn-success" name="premium_approve"><i class="fas fa-check"></i> Approve Request</button>
+					<button type="submit" class="btn btn-danger" name="premium_discard"><i class="fas fa-trash-alt"></i> Discard Request</button>
 				  </form>
 				</div>
 			  </div>
@@ -263,10 +329,10 @@ if (!isset($_SESSION['session_tasks_start']))
                         echo " /></td>";
                         echo "<td>".$rws[0]."</td>";
                         echo "<td>".$rws[1]."</td>";
-								echo "<td>".$rws[11]."</td>";
-								echo "<td>".$rws[7]."</td>";
-								echo "<td>".$rws[9]."</td>";
-								echo "<td>".$rws[4]."</td>";
+						echo "<td>".$rws[11]."</td>";
+						echo "<td>".$rws[7]."</td>";
+						echo "<td>".$rws[9]."</td>";
+						echo "<td>".$rws[4]."</td>";
                         echo "<td>".$rws[10]."</td>";
                         echo "</tr>";
                      }
@@ -350,21 +416,21 @@ if (!isset($_SESSION['session_tasks_start']))
                            echo "<tr><td><input type='radio' name='record_id' value=".$rws[0];
                            echo " /></td>";
                            echo "<td>".$rws[1]." (<b>".$rws[0]."</b>)</td>";
-									echo "<td>".$rws[3]."</td>";
-									echo "<td>".$rws[4]."</td>";
-									echo "<td>".$rws[5]."</td>";
-									echo "<td>".$rws[6]."</td>";
-									if ($rws[7] == "## inactive ##"){
-										echo "<td><i>This user has been inactive for too long (+2 years).</i></td>";
-									} elseif ($rws[7] == "## unusual ##"){
-										echo "<td><i>This account showed unusual/fraudulent activity.</i></td>";
-									} elseif ($rws[7] == "## exploiting ##"){
-										echo "<td><i>This account was used for exploiting purposes.</i></td>";
-									} elseif ($rws[7] == "## other ##"){
-										echo "<td><i>This account is deleted because of other (unlisted) reasons.</i></td>";
-									} else {
-										echo "<td>".$rws[7]."</td>";
-									}
+							echo "<td>".$rws[3]."</td>";
+							echo "<td>".$rws[4]."</td>";
+							echo "<td>".$rws[5]."</td>";
+							echo "<td>".$rws[6]."</td>";
+							if ($rws[7] == "## inactive ##"){
+								echo "<td><i>This user has been inactive for too long (+2 years).</i></td>";
+							} elseif ($rws[7] == "## unusual ##"){
+								echo "<td><i>This account showed unusual/fraudulent activity.</i></td>";
+							} elseif ($rws[7] == "## exploiting ##"){
+								echo "<td><i>This account was used for exploiting purposes.</i></td>";
+							} elseif ($rws[7] == "## other ##"){
+								echo "<td><i>This account is deleted because of other (unlisted) reasons.</i></td>";
+							} else {
+								echo "<td>".$rws[7]."</td>";
+							}
                       		echo "</tr>";
                         }
                         ?>

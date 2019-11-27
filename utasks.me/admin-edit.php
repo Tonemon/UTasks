@@ -341,6 +341,43 @@ You can go ahead and delete this task and/or the label if you dont need it anymo
 		mysql_query($sql_del2) or die(mysql_error());
 		header('location:admin?new&success=4');
 
+	} elseif (isset($_REQUEST['premium_approve'])){ // Delete new user request
+		$request_id = $_POST['premium_id'];
+		$request_sql = "SELECT * FROM UTasksMAIN.premiumreq WHERE id='$request_id'";
+		$request_query = mysql_query($request_sql) or die(mysql_error());
+		$request_rws = mysql_fetch_array($request_query);
+		$req_username = $request_rws[2];
+		$req_email = $request_rws[3];
+
+		// checking if user is already premium or not
+		$checkpremium_sql = "SELECT account FROM UTasksMAIN.users WHERE username='$req_username' AND email='$req_email'";
+		$checkp_query = mysql_query($checkpremium_sql) or die(mysql_error());
+		$checkp_rws = mysql_fetch_array($checkp_query);
+		$checkp_status = $checkp_rws[0];
+
+		if ($checkp_status == "normal"){
+			// Bank transaction mechanism should be placed here if it existed using the bank number and payment method variables
+			$premium_sql1 = "UPDATE UTasksMAIN.users SET account='premium' WHERE username='$req_username' and email='$req_email'";
+			mysql_query($premium_sql1) or die(mysql_error());
+
+			$premium_sql2 = "DELETE FROM UTasksMAIN.premiumreq WHERE id='$request_id'";
+			mysql_query($premium_sql2) or die(mysql_error());
+			header('location:admin?premium&success=5');
+
+		} elseif ($checkp_status == "premium" OR $checkp_status == "admin"){ // user has already premium
+			header('location:admin?premium&error=4');
+
+		} else { // combination username and password wrong
+			header('location:admin?premium&error=5');
+		}
+
+	} elseif (isset($_REQUEST['premium_discard'])){ // Delete new user request
+		$premium_user = $_POST['premium_id'];
+
+		$sql_del2 = "DELETE FROM UTasksMAIN.premiumreq WHERE id='$premium_user'";
+		mysql_query($sql_del2) or die(mysql_error());
+		header('location:admin?premium&success=4');
+
 	} else {
 		header("location:admin?all&error=1");
 	}

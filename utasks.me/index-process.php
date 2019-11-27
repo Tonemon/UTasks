@@ -42,5 +42,17 @@
 		} else { // passwords do not match
 			header('location:http://utasks.me/?register&error=2');
 		}
+	} elseif (isset($_REQUEST['submit_premium'])){ // Submit premium account request
+		// getting variables to store in table
+		$fullname = mysql_real_escape_string($_REQUEST['p_fullname']);
+		$username = mysql_real_escape_string($_REQUEST['p_username']);
+		$email = mysql_real_escape_string($_REQUEST['p_email']);
+		$method = mysql_real_escape_string($_REQUEST['p_method']); // payment method from dropdown
+		$banknumber = mysql_real_escape_string($_REQUEST['p_banknumber']);
+		$message = mysql_real_escape_string($_REQUEST['p_message']);
+		
+		$premiumsql = "INSERT INTO UTasksMAIN.premiumreq values('','$fullname','$username','$email','$method','$banknumber','$message','PENDING','')";
+		mysql_query($premiumsql) or die(mysql_error());
+		header('location:premium?premium&success=1');
 	}
 ?>
