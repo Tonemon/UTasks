@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 27, 2019 at 02:17 PM
+-- Generation Time: Nov 27, 2019 at 07:15 PM
 -- Server version: 5.6.37
 -- PHP Version: 5.6.31
 
@@ -98,15 +98,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `section_bookmark` int(1) NOT NULL DEFAULT '0',
   `section_active` int(1) NOT NULL DEFAULT '0',
   `section_archived` int(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `gender`, `dob`, `account`, `address`, `mobile`, `email`, `password`, `lastlogin`, `accstatus`, `username`, `status`, `card_active`, `card_week`, `card_passed`, `card_archived`, `card_total`, `section_bookmark`, `section_active`, `section_archived`) VALUES
-(1, 'Admin User', 'M', '2001-01-01', 'admin', 'street 5', '000112', 'admin@utasks.me', '515b11240733ed0a3eed2daecaba9e215b5a241f', '2019-11-27 02:14:04', 'ACTIVE', 'admin', 'offline', 1, 0, 0, 1, 1, 1, 0, 0),
-(2, 'Normal User', 'F', '2001-01-01', 'normal', 'street 5', '000113', 'normal@utasks.me', 'a7c319da11a4faf3062d2a72db1434a7ce85e8ed', '2019-11-27 02:17:02', 'ACTIVE', 'normal', 'offline', 1, 1, 1, 0, 1, 0, 1, 0);
+(1, 'Admin User', 'M', '2001-01-01', 'admin', 'street 5', '000112', 'admin@utasks.me', '515b11240733ed0a3eed2daecaba9e215b5a241f', '2019-11-27 07:12:19', 'ACTIVE', 'admin', 'offline', 1, 0, 0, 1, 1, 1, 0, 0),
+(2, 'Normal User', 'F', '2001-01-01', 'normal', 'street 5', '000113', 'normal@utasks.me', 'a7c319da11a4faf3062d2a72db1434a7ce85e8ed', '2019-11-27 07:04:36', 'ACTIVE', 'normal', 'online', 1, 1, 1, 0, 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -212,7 +212,7 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `usersnew`
 --

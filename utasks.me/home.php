@@ -56,11 +56,11 @@ if (!isset($_SESSION['session_tasks_start']))
 				echo "<div class='alert alert-danger alert-dismissible'>
 					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
 					<i class='fas fa-exclamation-triangle'></i> You dont have access to this page.</div>";
-				} elseif ($_GET['error'] == "3") { // error: no task selected
+			} elseif ($_GET['error'] == "3") { // error: no task selected
 				echo "<div class='alert alert-warning alert-dismissible'>
 					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
 					<i class='fas fa-exclamation-triangle'></i> No task selected to perform this action. Please try again.</div>";
-				}
+			}
 		?>
 		
 		<!-- Customizable Icon Cards-->
@@ -86,7 +86,7 @@ if (!isset($_SESSION['session_tasks_start']))
 				?>	
                 <div class="mr-5"><b><?php echo $item_count; ?></b> active Tasks.</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="tasks?show=active">
+              <a class="card-footer text-white clearfix small z-1" href="tasks?advanced_search&status=active">
                 <span class="float-left">View Tasks <small>(active)</small></span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>
@@ -109,7 +109,7 @@ if (!isset($_SESSION['session_tasks_start']))
 				?>
                 <div class="mr-5"><b><?php echo $week_count; ?></b> to complete this week.</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="tasks?show=week">
+              <a class="card-footer text-white clearfix small z-1" href="tasks?advanced_search&show=week">
                 <span class="float-left">View Tasks <small>(this week)</small></span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>
@@ -133,7 +133,7 @@ if (!isset($_SESSION['session_tasks_start']))
 				?>
                 <div class="mr-5"><b><?php echo $passed_count; ?></b> deadlines passed.</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="tasks?show=passed">
+              <a class="card-footer text-white clearfix small z-1" href="tasks?advanced_search&show=passed">
                 <span class="float-left">View Tasks <small>(with deadline passed)</small></span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>
@@ -157,7 +157,7 @@ if (!isset($_SESSION['session_tasks_start']))
 				?>	
                 <div class="mr-5"><b><?php echo $archived_count; ?></b> Tasks archived.</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="tasks?show=archived">
+              <a class="card-footer text-white clearfix small z-1" href="tasks?advanced_search&status=archived">
                 <span class="float-left">View Tasks <small>(archived)</small></span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>

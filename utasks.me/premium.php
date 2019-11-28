@@ -136,6 +136,7 @@
         <ul class="list-unstyled mt-3 mb-4">
           <li>Unlimited tasks</li>
           <li>3 labels total</li>
+          <li>Advanced Search feature</li>
           <li>No Task Sharing</li>
           <li>No Premium Crown</li>
         </ul>
@@ -151,6 +152,7 @@
         <ul class="list-unstyled mt-3 mb-4">
           <li>Unlimited tasks</li>
           <li>Unlimited labels</li>
+          <li>Advanced Search feature</li>
           <li>Task Sharing Feature</li>
           <li>Special Premium Crown</li>
         </ul>
