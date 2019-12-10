@@ -100,7 +100,7 @@ if (isset($_REQUEST['normal_search'])){ // user presses the normal search button
     <link href="vendor/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts/styles for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <script src="https://kit.fontawesome.com/65d0b9813c.js" crossorigin="anonymous"></script>
     <link href="vendor/css/sb-admin.css" rel="stylesheet">
 
     <!-- Page level plugin CSS-->

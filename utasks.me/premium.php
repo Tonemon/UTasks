@@ -13,7 +13,7 @@
 	    <link href="vendor/css/bootstrap.min.css" rel="stylesheet">
 
 		<!-- Custom fonts/css for this template-->
-		<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+		<script src="https://kit.fontawesome.com/65d0b9813c.js" crossorigin="anonymous"></script>
 	    <link href="vendor/css/custom.css" rel="stylesheet">
 
 	</head>
