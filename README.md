@@ -1,4 +1,4 @@
-# UTask Informatica Eindproject
+# UTask Project
 This is a repository for the UTasks project, which has been developed during a school project. This is not the final README.md file, an extended version will be published soon.
 
 ## About This Project
